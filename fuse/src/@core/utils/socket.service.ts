@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import io from "socket.io-client";
 import { environment } from '../../environments/environment';
-import { LoadEvents } from 'app/main/apps/events/_store/events.actions';
-import { LoadUsers } from '../store/users/users.actions';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
@@ -21,11 +19,6 @@ export class SocketService {
     connect() : any {
         let socket = io.connect(environment.SOCKET_URL);
         return socket;
-    }
-
-    syncData() : void {
-        this._store.dispatch(new LoadEvents());
-        this._store.dispatch(new LoadUsers());
     }
 
     getSocket() : any {

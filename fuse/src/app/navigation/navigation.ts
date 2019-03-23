@@ -21,34 +21,7 @@ export const navigation: FuseNavigation[] = [
                     fg       : '#FFFFFF'
                 }
             },
-            {
-                id       : 'events',
-                title    : 'Events',
-                translate: 'NAV.EVENTS.TITLE',
-                type     : 'item',
-                icon     : 'calendar_today',
-                url      : '/events',
-                badge    : {
-                    title    : '5',
-                    translate: 'NAV.EVENTS.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
-            },
-            {
-                id       : 'news',
-                title    : 'News',
-                translate: 'NAV.NEWS.TITLE',
-                type     : 'item',
-                icon     : 'new_releases',
-                url      : '/news',
-                badge    : {
-                    title    : '25',
-                    translate: 'NAV.NEWS.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
-            },
+
             {
                 id       : 'usermang',
                 title    : 'User Management',

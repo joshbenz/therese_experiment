@@ -21,7 +21,6 @@ import { DashboardModule } from './main/dashboard/dashboard.module';
 import { ToastrModule } from 'ngx-toastr';
 import { CoreModule } from '@core/core.module';
 import { AuthModule } from './main/authentication/auth.module';
-import { AppsModule } from './main/apps/apps.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -86,7 +85,6 @@ const appRoutes: Routes = [ //see auth midule below
         CoreModule.forRoot(),
         AuthModule, //since I have this..each of those modules handle their own routing
         //so i dont need it in thte app routing
-        AppsModule,
         NgxsModule.forRoot([AuthState]),
         NgxsStoragePluginModule.forRoot({
             key: 'auth.token'

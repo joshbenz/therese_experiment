@@ -1,11 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { User } from '@core/user/user.model';
-import { UsersState } from '@core/store/users/user.state';
 import { Subject, Observable, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TokenAuthService } from '@core/auth/tokenAuth.service';
-import { Event } from './../apps/events/_store/events.state.model';
 import { Router } from '@angular/router';
 
 
@@ -16,7 +13,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  @Select(UsersState.allUsers) users$ : Observable<User[]>;
   private ngUnsubscribe = new Subject();
 
   upcomingEvents$ : Observable<Event[]>;
@@ -27,9 +23,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
               public _router: Router) { }
 
   ngOnInit() {
-    this.users$.pipe(takeUntil(this.ngUnsubscribe));
+    //this.users$.pipe(takeUntil(this.ngUnsubscribe));
 
-    this.users$.subscribe((users) => {
+    /*this.users$.subscribe((users) => {
       let id = this._tokenService.getCurrUserId();
       let index = users.findIndex(x => x._id === id);
 
@@ -51,7 +47,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.upcomingEvents$.pipe(takeUntil(this.ngUnsubscribe));
           this.pastEvents$.pipe(takeUntil(this.ngUnsubscribe));
       }
-    });
+    });*/
   }
 
 

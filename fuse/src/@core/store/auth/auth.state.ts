@@ -5,7 +5,6 @@ import * as actions  from './auth.actions';
 import { AuthService } from '@core/auth/auth.service';
 import { Credentials } from '@core/user/credentials.model';
 import { Store } from '@ngxs/store';
-import { LoadUsers } from '../users/users.actions';
 import { UtilsService } from '@core/utils/utils.service';
 import { TokenAuthService } from '../../auth/tokenAuth.service';
 
@@ -55,7 +54,6 @@ import { TokenAuthService } from '../../auth/tokenAuth.service';
             token: payload
         });
         this._utils.success("Login Success, Welcome!");
-        dispatch(new LoadUsers());
     }
 
     @Action(actions.LoginFail)

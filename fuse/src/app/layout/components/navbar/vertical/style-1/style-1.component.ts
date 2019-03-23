@@ -9,7 +9,6 @@ import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scr
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 
-import { User } from '@core/user/user.model';
 import { TokenAuthService } from '@core/auth/tokenAuth.service';
 
 @Component({
