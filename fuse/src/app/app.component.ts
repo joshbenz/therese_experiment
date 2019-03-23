@@ -19,8 +19,6 @@ import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
 import { Actions, ofActionDispatched } from '@ngxs/store';
 import { Logout, Login } from '@core/store/auth/auth.actions';
 import { SocketService } from '@core/utils/socket.service';
-import { LoadEvents } from './main/apps/events/_store/events.actions';
-import { LoadUsers } from '@core/store/users/users.actions';
 import { Store } from '@ngxs/store';
 
 
@@ -145,8 +143,8 @@ export class AppComponent implements OnInit, OnDestroy
 
         let socket$ = this._socketService.getSocket();
         socket$.subscribe( () => {
-            this._store.dispatch(new LoadEvents());
-            this._store.dispatch(new LoadUsers())
+            //this._store.dispatch(new LoadEvents());
+            //this._store.dispatch(new LoadUsers())
         });
         // Subscribe to config changes
         this._fuseConfigService.config

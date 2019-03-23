@@ -4,7 +4,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AuthService } from './auth/auth.service';
-import { UserService } from './user/user.service';
 import { TokenInterceptorService as TokenInterceptor } from './utils/token-interceptor.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { HttpErrorHandler } from './utils/http-error-handler.service';
@@ -16,7 +15,6 @@ import { TokenAuthService } from './auth/tokenAuth.service';
 
 export const CORE_PROVIDERS = [
     AuthService,
-    UserService,
     AuthGuardService,
     HttpErrorHandler,
     ErrorService,

@@ -16,14 +16,11 @@ import { fuseConfig } from 'app/fuse-config';
 
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
-import { NewsModule } from 'app/main/news/news.module';
 import { DashboardModule } from './main/dashboard/dashboard.module';
-import { UserMangModule } from 'app/main/usermang/usermang.module';
 
 import { ToastrModule } from 'ngx-toastr';
 import { CoreModule } from '@core/core.module';
 import { AuthModule } from './main/authentication/auth.module';
-import { NewsDialogComponent } from './main/news/news-dialog/news-dialog.component';
 import { AppsModule } from './main/apps/apps.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -32,7 +29,6 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxPermissionsModule } from 'ngx-permissions';
 
 import { AuthState } from '@core/store/auth/auth.state';
-import { UsersState } from '@core/store/users/user.state';
 
 
 
@@ -86,14 +82,12 @@ const appRoutes: Routes = [ //see auth midule below
 
         // App modules
         LayoutModule,
-        NewsModule,
         DashboardModule,
-        UserMangModule,
         CoreModule.forRoot(),
         AuthModule, //since I have this..each of those modules handle their own routing
         //so i dont need it in thte app routing
         AppsModule,
-        NgxsModule.forRoot([AuthState, UsersState]),
+        NgxsModule.forRoot([AuthState]),
         NgxsStoragePluginModule.forRoot({
             key: 'auth.token'
           }),
@@ -106,7 +100,7 @@ const appRoutes: Routes = [ //see auth midule below
         AppComponent
     ],
     entryComponents: [
-        NewsDialogComponent
+        
     ]
 })
 export class AppModule
