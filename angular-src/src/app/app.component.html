@@ -11,7 +11,25 @@
       <!--</div>-->
       <!--<p>test</p>-->
       
-      <button type="button" (click)="addData()" class="btn btn-light">Add Data</button>
+      <button *ngIf="_authService.isAuthenticated()" type="button" (click)="addData()" class="btn btn-light">Add Data</button>
+      <button *ngIf="!_authService.isAuthenticated()" type="button" (click)="login()" class="btn btn-light">Login</button>
+
+      <mat-card *ngIf="isloggingIn">
+        <mat-card-header>
+          <mat-card-title>Log In</mat-card-title>
+      </mat-card-header>      
+
+      <mat-card-content>
+        <mat-label>Email: </mat-label><input matInput type="text" [(ngModel)]="email">
+        <mat-label>Password: </mat-label><input matInput type="password" [(ngModel)]="password">
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button (click)="loginSubmit()">Submit</button>
+        <button mat-button (click)="onCancel()">Cancel</button>
+      </mat-card-actions>
+      </mat-card>
+
         <mat-card *ngIf="isAddingData">
             <mat-card-header>
                 <mat-card-title>New Data</mat-card-title>

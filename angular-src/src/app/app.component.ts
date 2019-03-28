@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { AuthService } from './services/auth.service';
 
 
 
@@ -18,9 +19,12 @@ export class AppComponent implements OnInit {
   dogs = ['Myia', 'Mika', 'Ali'];
   bowls = ['White', 'Clear', 'Red', 'Blue', 'Yellow'];
   nVisits = 0;
-  render = false;
+  isloggingIn = false;
+  email = '';
+  password='';
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              public _authService: AuthService) {
   }
 
   ngOnInit() {
@@ -76,5 +80,20 @@ export class AppComponent implements OnInit {
   onCancel() : void {
     this.dataForm = this.createForm();
     this.isAddingData = false;
+    this.isloggingIn = false;
+    this.email = '';
+    this.password = '';
+  }
+
+  loginSubmit() : void {
+    this._authService.login(this.email, this.password)
+    this.isloggingIn = false;
+    this.email = '';
+    this.password = '';
+  }
+
+  login() : void {
+    this.isAddingData = false;
+    this.isloggingIn = true;
   }
 }

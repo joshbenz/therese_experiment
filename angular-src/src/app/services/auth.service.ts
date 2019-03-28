@@ -30,6 +30,8 @@ export class AuthService {
 
 	public isAuthenticated() : boolean {
 		let auth = JSON.parse(localStorage.getItem('auth'));
+		if(!auth) return false;
+		
 		let token = auth.token; // your token
 
 		const helper = new JwtHelperService();
