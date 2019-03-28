@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
+import { DataService } from './services/data.service';
 
 
 
@@ -26,7 +27,8 @@ export class AppComponent implements OnInit {
   ASDF = false;
 
   constructor(private _formBuilder: FormBuilder,
-              public _authService: AuthService) {
+              public _authService: AuthService,
+              private _data: DataService) {
   }
 
   ngOnInit() {

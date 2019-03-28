@@ -14,6 +14,7 @@ import {MatFormFieldModule,
   import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
   import { TokenInterceptorService as TokenInterceptor } from './services/token-interceptor.service';
   import { AuthService } from './services/auth.service';
+  import { DataService } from './services/data.service';
 
 
 
@@ -44,6 +45,7 @@ import {MatFormFieldModule,
       multi: true
     },
     AuthService,
+    DataService,
 ],
   bootstrap: [AppComponent]
 })

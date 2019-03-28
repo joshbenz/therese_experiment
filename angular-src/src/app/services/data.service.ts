@@ -5,11 +5,10 @@ import { Injectable } from '@angular/core';
 //import { Observable } from 'rxjs/Observable';
 import { catchError, retry, map, shareReplay, retryWhen, tap, delayWhen } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
-import { throwError, timer } from 'rxjs';
 
 
 @Injectable()
-export class EventService {
+export class DataService {
     readonly url : string = environment.API_URL + "/api/v1/datapoints";
 
 	constructor(private _http: HttpClient) {}
