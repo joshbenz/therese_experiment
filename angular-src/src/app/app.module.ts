@@ -11,6 +11,9 @@ import {MatFormFieldModule,
   MatNativeDateModule,
   MatInputModule,
   MatSelectModule } from '@angular/material';
+  import { HTTP_INTERCEPTORS } from '@angular/common/http';
+  import { TokenInterceptorService as TokenInterceptor } from './services/token-interceptor.service';
+
 
 
 
@@ -30,9 +33,15 @@ import {MatFormFieldModule,
     MatCardModule,
     MatNativeDateModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
   ],
-  providers: [],
+  providers: [    
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
