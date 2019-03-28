@@ -30,12 +30,13 @@ export class AppComponent implements OnInit {
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
       .subscribe(query => {
         this.nVisits = query;
-        //this.dataForm.controls.bowlsVisitedOrder.setValue(Array(this.nVisits));
         const visited = this.dataForm.controls.bowlsVisitedOrder as FormArray
 
         for(let i=0; i<this.nVisits; i++) {
             visited.push(this._formBuilder.group({bowl: 'white'}));
         }
+
+        while(visited.length > this.nVisits) visited.removeAt(visited.length-1);
         console.log(this.dataForm.get('bowlsVisitedOrder'));
 
       });
