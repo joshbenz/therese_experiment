@@ -1,8 +1,6 @@
-import 'rxjs/add/observable/throw';
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-//import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { catchError, retry, map, shareReplay, retryWhen, tap, delayWhen } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 

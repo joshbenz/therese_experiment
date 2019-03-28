@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,
               public _authService: AuthService,
-              private _data: DataService) {
+              private _dataService: DataService) {
   }
 
   ngOnInit() {
@@ -78,8 +78,7 @@ export class AppComponent implements OnInit {
     this.dataForm = this.createForm();
     this.isAddingData = false;
 
-    
-
+    this._dataService.create(data).subscribe(x => console.log(x));
   }
 
   onCancel() : void {
