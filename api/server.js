@@ -86,5 +86,4 @@ async function connect() {
 connect();
 
 module.exports = {
-	clients, 
 };
