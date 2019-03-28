@@ -26,9 +26,8 @@
 
               <mat-form-field name="dataForm" [formGroup]="dataForm" class="col">
                       <mat-label>Which dog?</mat-label>
-                      <select matNativeControl required formControlName="dogName">
-                        <option value="Ali">Ali</option>
-                        <option value="Mika">Mika</option>
+                      <select matNativeControl formControlName="dogName">                       
+                        <option *ngFor="let dog of dogs" value="dog">{{dog}}</option>
                       </select>
               </mat-form-field>
 
@@ -37,60 +36,70 @@
     
               <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px; padding-left: 20px">
                   <mat-label>1st bowl</mat-label>
-                  <select matNativeControl required formControlName="dogName">
-                    <option value="Ali">Ali</option>
-                    <option value="Mika">Mika</option>
+                  <select matNativeControl formControlName="dogName">
+                      <option *ngFor="let bowl of bowls" value="bowl">{{bowl}}</option>
                   </select>
               </mat-form-field>
 
               <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
                   <mat-label>2nd bowl</mat-label>
-                  <select matNativeControl required formControlName="dogName">
-                    <option value="Ali">Ali</option>
-                    <option value="Mika">Mika</option>
+                  <select matNativeControl formControlName="dogName">
+                      <option *ngFor="let bowl of bowls" value="bowl">{{bowl}}</option>
                   </select>
               </mat-form-field>
 
               <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
                   <mat-label>3rd bowl</mat-label>
-                  <select matNativeControl required formControlName="dogName">
-                    <option value="Ali">Ali</option>
-                    <option value="Mika">Mika</option>
+                  <select matNativeControl formControlName="dogName">
+                      <option *ngFor="let bowl of bowls" value="bowl">{{bowl}}</option>
                   </select>
               </mat-form-field>
 
               <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
                   <mat-label>4th bowl</mat-label>
-                  <select matNativeControl required formControlName="dogName">
-                    <option value="Ali">Ali</option>
-                    <option value="Mika">Mika</option>
+                  <select matNativeControl formControlName="dogName">
+                      <option *ngFor="let bowl of bowls" value="bowl">{{bowl}}</option>
                   </select>
               </mat-form-field>
 
               <mat-form-field name="dataForm" [formGroup]="dataForm" >
                   <mat-label>5th bowl</mat-label>
-                  <select matNativeControl required formControlName="dogName">
-                    <option value="Ali">Ali</option>
-                    <option value="Mika">Mika</option>
+                  <select matNativeControl formControlName="dogName">
+                      <option *ngFor="let bowl of bowls" value="bowl">{{bowl}}</option>
                   </select>
               </mat-form-field>
             </div>
 
             <mat-form-field name="dataForm" [formGroup]="dataForm" class="col">
                 <mat-label>Which bowl had the chicken</mat-label>
-                <select matNativeControl required formControlName="dogName">
-                  <option value="Ali">Ali</option>
-                  <option value="Mika">Mika</option>
+                <select matNativeControl formControlName="dogName">
+                    <option *ngFor="let bowl of bowls" value="bowl">{{bowl}}</option>
                 </select>
             </mat-form-field>
 
             <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
-                <input matInput placeholder="Number of bowls visited" type="number" value="0" formControlName="dogName">
+                <input matInput placeholder="Number of bowls visited" type="number"  formControlName="nBowlsVisited">
               </mat-form-field>
+
+              <ng-container name="dataForm" [formGroup]="dataForm">
+              
+              <mat-form-field  formArrayName="bowlsVisitedOrder" class="col"
+              *ngFor="let visitedBowls of dataForm.controls.bowlsVisitedOrder['controls']; let i = index">
+                  <mat-label>Bowl #{{i+1}}</mat-label>
+                  
+                  <ng-container [formGroupName]="i">
+                  
+                  <select matNativeControl formControlName="bowl">
+                      <option *ngFor="let b of bowls" value="b" >{{b}}</option>
+                  </select>
+                </ng-container>
+              </mat-form-field> 
+
+            </ng-container>
 
               <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
                   <mat-label>Time taken to correct bowl(sec)</mat-label>
-                  <input matInput type="number" value="0" formControlName="dogName">
+                  <input matInput type="number" formControlName="nBowlsVisited">
                 </mat-form-field>
 
               
