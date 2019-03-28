@@ -28,7 +28,7 @@ export class AppComponent {
       orderOfBowls: new FormControl(''),
       chickenBowl: new FormControl(''),
       nBowlsVisited: new FormControl(''),
-      bowlsVisitedOrder: new FormControl([]),
+      bowlsVisitedOrder: new FormControl(''),
       timeToChicken: new FormControl(''),
       comments: new FormControl('')
     });

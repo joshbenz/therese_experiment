@@ -18,7 +18,7 @@
             </mat-card-header>
 
             <mat-card-content>
-              <mat-form-field name="dataForm" [formGroup]="dataForm" class="col">
+              <mat-form-field name="dataForm" [formGroup]="dataForm" >
                       <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
@@ -32,15 +32,77 @@
                       </select>
               </mat-form-field>
 
-              <mat-form-field name="dataForm" [formGroup]="dataForm" class="col">
-                  <mat-label>Order of the bowls</mat-label>
+              <h5>Order of the Bowls</h5>
+              <div class="row">
+    
+              <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px; padding-left: 20px">
+                  <mat-label>1st bowl</mat-label>
                   <select matNativeControl required formControlName="dogName">
                     <option value="Ali">Ali</option>
                     <option value="Mika">Mika</option>
                   </select>
-          </mat-form-field>
+              </mat-form-field>
 
+              <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
+                  <mat-label>2nd bowl</mat-label>
+                  <select matNativeControl required formControlName="dogName">
+                    <option value="Ali">Ali</option>
+                    <option value="Mika">Mika</option>
+                  </select>
+              </mat-form-field>
+
+              <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
+                  <mat-label>3rd bowl</mat-label>
+                  <select matNativeControl required formControlName="dogName">
+                    <option value="Ali">Ali</option>
+                    <option value="Mika">Mika</option>
+                  </select>
+              </mat-form-field>
+
+              <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
+                  <mat-label>4th bowl</mat-label>
+                  <select matNativeControl required formControlName="dogName">
+                    <option value="Ali">Ali</option>
+                    <option value="Mika">Mika</option>
+                  </select>
+              </mat-form-field>
+
+              <mat-form-field name="dataForm" [formGroup]="dataForm" >
+                  <mat-label>5th bowl</mat-label>
+                  <select matNativeControl required formControlName="dogName">
+                    <option value="Ali">Ali</option>
+                    <option value="Mika">Mika</option>
+                  </select>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field name="dataForm" [formGroup]="dataForm" class="col">
+                <mat-label>Which bowl had the chicken</mat-label>
+                <select matNativeControl required formControlName="dogName">
+                  <option value="Ali">Ali</option>
+                  <option value="Mika">Mika</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
+                <input matInput placeholder="Number of bowls visited" type="number" value="0" formControlName="dogName">
+              </mat-form-field>
+
+              <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
+                  <mat-label>Time taken to correct bowl(sec)</mat-label>
+                  <input matInput type="number" value="0" formControlName="dogName">
+                </mat-form-field>
+
+              
+            <mat-form-field style="padding-right: 20px">
+                <textarea matInput placeholder="Additional Comments" rows="5"></textarea>
+              </mat-form-field>
             </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-button>Submit</button>
+                <button mat-button>Cancel</button>
+              </mat-card-actions>
         </mat-card>
     </main>
 
