@@ -5,7 +5,6 @@ import { retry, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -13,11 +12,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 	constructor(private http : HttpClient) {}
 
-	readonly url : string = '';//environment.API_URL + "/api/v1";
+	readonly url : string = 'http://localhost:3000/api/v1';//environment.API_URL + "/api/v1";
 
 	public login(email:string, password:string) : Observable<string> {
 		return this.http.post<any>(this.url + `/authenticate`, { email:email, password:password })
 			.pipe(retry(3), map((response) => {
+				console.log(response);
 				if(response.success) {
 					localStorage.setItem('auth', JSON.stringify({ token: response.token }));
 
@@ -31,7 +31,7 @@ export class AuthService {
 	public isAuthenticated() : boolean {
 		let auth = JSON.parse(localStorage.getItem('auth'));
 		if(!auth) return false;
-		
+
 		let token = auth.token; // your token
 
 		const helper = new JwtHelperService();

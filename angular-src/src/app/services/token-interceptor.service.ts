@@ -23,7 +23,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     request = request.clone({
       setHeaders: {		
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('auth')).token}`
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('auth'))}`
       }
     });
     // next.handle returns an observable

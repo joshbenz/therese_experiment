@@ -11,8 +11,8 @@
       <!--</div>-->
       <!--<p>test</p>-->
       
-      <button *ngIf="_authService.isAuthenticated()" type="button" (click)="addData()" class="btn btn-light">Add Data</button>
-      <button *ngIf="!_authService.isAuthenticated()" type="button" (click)="login()" class="btn btn-light">Login</button>
+      <button *ngIf="ASDF" type="button" (click)="addData()" class="btn btn-light">Add Data</button>
+      <button *ngIf="!ASDF" type="button" (click)="login()" class="btn btn-light">Login</button>
 
       <mat-card *ngIf="isloggingIn">
         <mat-card-header>
@@ -20,7 +20,6 @@
       </mat-card-header>      
 
       <mat-card-content>
-        <mat-label>Email: </mat-label><input matInput type="text" [(ngModel)]="email">
         <mat-label>Password: </mat-label><input matInput type="password" [(ngModel)]="password">
       </mat-card-content>
 

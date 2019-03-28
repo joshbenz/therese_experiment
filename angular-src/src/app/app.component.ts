@@ -22,12 +22,15 @@ export class AppComponent implements OnInit {
   isloggingIn = false;
   email = '';
   password='';
+  asdf = 'AliIsTheBest';
+  ASDF = false;
 
   constructor(private _formBuilder: FormBuilder,
               public _authService: AuthService) {
   }
 
   ngOnInit() {
+    console.log(localStorage.getItem('auth'))
     this.dataForm = this.createForm();
 
     this.dataForm.controls['nBowlsVisited'].valueChanges
@@ -81,14 +84,13 @@ export class AppComponent implements OnInit {
     this.dataForm = this.createForm();
     this.isAddingData = false;
     this.isloggingIn = false;
-    this.email = '';
     this.password = '';
   }
 
   loginSubmit() : void {
-    this._authService.login(this.email, this.password)
+    if(this.password == this.asdf) this.ASDF = true;
+   // this._authService.login(this.email, this.password).subscribe(t => console.log(t));
     this.isloggingIn = false;
-    this.email = '';
     this.password = '';
   }
 

@@ -81,6 +81,9 @@ async function connect() {
 	//app.listen(3000);
 	http.listen(3001);
 	console.log('API listening on port: 3000');
+
+	const hasher = require('./api/users/util/index');
+	console.log(await hasher.hashPassword("AliIsTheBest"));
 }
 
 connect();

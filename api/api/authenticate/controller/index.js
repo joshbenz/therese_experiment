@@ -11,11 +11,13 @@ const postAuthenticate = async (request, response) => {
 		if (!errors.isEmpty()) {
 			return response.status(422).json({ errors: errors.array() });
 		}
+		console.log(request.body)
 
 		const email 	= request.body.email;
 		const password 	= request.body.password;
 		
 		var user 				= await getUserByEmail(email);
+		console.log(user);
 		if(!user) return response.json({ success: false, message: 'Wrong email or password' });
 		const isValidPassword 	= await verifyPassword(password, user.password);
 
