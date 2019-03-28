@@ -65,7 +65,7 @@ app.use(helmet());
 
 
 app.use('/api/v1/authenticate', 	require('./api/authenticate'));
-app.use('/api/v1/datapoint', 		require('./api/datapoints'));
+app.use('/api/v1/datapoints', 		require('./api/datapoints'));
 
 
 
