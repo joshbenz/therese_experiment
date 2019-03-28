@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
         const visited = this.dataForm.controls.bowlsVisitedOrder as FormArray;
 
         for(let i=0; i<this.nVisits; i++) {
-            visited.push(this._formBuilder.group({bowl: 'white'}));
+            visited.push(this._formBuilder.group({bowl: ''}));
         }
 
         while(visited.length > this.nVisits) visited.removeAt(visited.length-1);
@@ -58,16 +58,18 @@ export class AppComponent implements OnInit {
 
     const orderBowls = form.controls.orderOfBowls as FormArray;
     for(let i=0; i<this.bowls.length; i++) {
-      orderBowls.push(this._formBuilder.group({bowl: 'white'}));
+      orderBowls.push(this._formBuilder.group({bowl: ''}));
     }
 
     return form;
   }
 
   onSubmit() : void {
-    let data = this.dataForm.getRawValue();
-    console.log(data);
-    //this.isAddingData = false;
+    let data = Object.assign({}, this.dataForm.getRawValue());
+    this.dataForm = this.createForm();
+    this.isAddingData = false;
+
+    
 
   }
 
