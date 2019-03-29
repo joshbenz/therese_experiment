@@ -34,11 +34,15 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     console.log(localStorage.getItem('auth'))
     this.dataForm = this.createForm();
+    this.refresh();
+  }
 
+  refresh() : void {
     this.dataForm.controls['nBowlsVisited'].valueChanges
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
       .subscribe(query => {
         this.nVisits = query;
+        console.log(query);
         const visited = this.dataForm.controls.bowlsVisitedOrder as FormArray;
 
         for(let i=0; i<this.nVisits; i++) {
@@ -51,6 +55,7 @@ export class AppComponent implements OnInit {
 
   addData() { 
     this.isAddingData = true;
+    this.refresh();
   }
 
   createForm() : FormGroup {
@@ -69,7 +74,7 @@ export class AppComponent implements OnInit {
     for(let i=0; i<this.bowls.length; i++) {
       orderBowls.push(this._formBuilder.group({bowl: ''}));
     }
-
+    
     return form;
   }
 
