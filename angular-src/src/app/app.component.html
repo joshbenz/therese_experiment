@@ -74,7 +74,7 @@
               </div>
 
                 <mat-form-field style="padding-right: 20px">
-                    <input matInput placeholder="Number of bowls visited" type="number"  formControlName="nBowlsVisited">
+                    <input matInput placeholder="Number of bowls visited" type="number" min="0" formControlName="nBowlsVisited">
                   </mat-form-field>
               
               
@@ -94,7 +94,7 @@
 
               <mat-form-field name="dataForm" [formGroup]="dataForm" style="padding-right: 20px">
                   <mat-label>Time taken to correct bowl(sec)</mat-label>
-                  <input matInput type="number" formControlName="timeToChicken">
+                  <input matInput type="number" min="0" formControlName="timeToChicken">
                 </mat-form-field>
 
               
