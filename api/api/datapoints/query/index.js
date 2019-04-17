@@ -12,7 +12,7 @@ const createDatapoint = async (data) => {
 
 const getDatapoints = async () => {
 	try {
-		let datapoints = await Event.find({});
+		let datapoints = await datapoint.find({});
 
 		return datapoints;
 	} catch(error) {
