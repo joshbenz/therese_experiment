@@ -104,4 +104,8 @@ export class AppComponent implements OnInit {
     this.isAddingData = false;
     this.isloggingIn = true;
   }
+
+  downloadData() : void {
+    
+  }
 }
