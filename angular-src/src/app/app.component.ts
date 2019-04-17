@@ -4,6 +4,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
 import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
+import * as CanvasJS from './canvasjs.min';
 
 
 @Component({
