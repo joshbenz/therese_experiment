@@ -106,8 +106,63 @@ export class AppComponent implements OnInit {
   }
 
   downloadData() : void {
+    var options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: 'Data Report',
+      useBom: true,
+      noDownload: false,
+      headers: [
+        "Date", 
+        "Dog", 
+        "Initial Order of Bowls",
+        "Bowl with Chicken",
+        "Number Of Bowls Visited",
+        "Oder Bowls Were Visited",
+        "Additional Comments"],
+      nullToEmptyString: true,
+    };
+
+    let dataPoints = [];
     this._dataService.getDatapoints().subscribe(data => {
-      new Angular5Csv(data, 'My Report');
+      for(let dataPoint of data as any) {
+        dataPoint.orderOfBowls = JSON.parse(dataPoint.orderOfBowls);
+        dataPoint.bowlsVisitedOrder = JSON.parse(dataPoint.bowlsVisitedOrder);
+
+
+        var tmp = {
+          date: new Date(dataPoint.date).toDateString(),
+          dog: dataPoint.dogName,
+          orderOfBowls: this.bowlsToString(dataPoint.orderOfBowls),
+          chickenBowl: dataPoint.chickenBowl,
+          nBowlsVisited: dataPoint.nBowlsVisited,
+          bowlsVisitedOrder: this.bowlsToString(dataPoint.bowlsVisitedOrder),
+          timeToChicken: dataPoint.timeToChicken,
+          comments: dataPoint.comments
+        };
+
+        dataPoints.push(tmp);
+      }
+
+      dataPoints.sort(function(a,b){return new Date(a).getTime() - new Date(b).getTime()});
+      new Angular5Csv(dataPoints, "Report", options);
     });
+  }
+
+  bowlsToString(arr: any) : string {
+    let result = "";
+
+    for(let b of arr) {
+      if(b) {
+        if(b.bowl) {
+          result = result + b.bowl + "-";
+        }
+      }
+    }
+
+    return result;
   }
 }
