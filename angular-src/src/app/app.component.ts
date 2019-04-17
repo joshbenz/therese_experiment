@@ -33,9 +33,47 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(localStorage.getItem('auth'))
+    //console.log(localStorage.getItem('auth'))
     this.dataForm = this.createForm();
     this.refresh();
+
+    /*let chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: "Basic Column Chart in Angular"
+      },
+      data: [{
+        type: "column",
+        dataPoints: [
+          { y: 71, label: "Apple" },
+          { y: 55, label: "Mango" },
+          { y: 50, label: "Orange" },
+          { y: 65, label: "Banana" },
+          { y: 95, label: "Pineapple" },
+          { y: 68, label: "Pears" },
+          { y: 28, label: "Grapes" },
+          { y: 34, label: "Lychee" },
+          { y: 14, label: "Jackfruit" }
+        ]
+      }]
+    });
+      
+    chart.render();*/
+
+    this._dataService.getDatapoints().subscribe(data => {
+      for(let dataPoint of data as any) {
+        dataPoint.orderOfBowls = JSON.parse(dataPoint.orderOfBowls);
+        dataPoint.bowlsVisitedOrder = JSON.parse(dataPoint.bowlsVisitedOrder);
+      }
+
+      let aliBowlsCheckedBarChart = this.bowlsChecked('Ali', JSON.parse(JSON.stringify(data)))
+    });
+  }
+
+  bowlsChecked(dog, APIdata) {
+    let data = APIdata.filter(x => {return x.dogName.toLowerCase() == dog.toLowerCase()});
+    
   }
 
   refresh() : void {
