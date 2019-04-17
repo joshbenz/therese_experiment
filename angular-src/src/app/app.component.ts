@@ -37,44 +37,53 @@ export class AppComponent implements OnInit {
     this.dataForm = this.createForm();
     this.refresh();
 
-    /*let chart = new CanvasJS.Chart("chartContainer", {
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: "Basic Column Chart in Angular"
-      },
-      data: [{
-        type: "column",
-        dataPoints: [
-          { y: 71, label: "Apple" },
-          { y: 55, label: "Mango" },
-          { y: 50, label: "Orange" },
-          { y: 65, label: "Banana" },
-          { y: 95, label: "Pineapple" },
-          { y: 68, label: "Pears" },
-          { y: 28, label: "Grapes" },
-          { y: 34, label: "Lychee" },
-          { y: 14, label: "Jackfruit" }
-        ]
-      }]
-    });
-      
-    chart.render();*/
-
     this._dataService.getDatapoints().subscribe(data => {
       for(let dataPoint of data as any) {
         dataPoint.orderOfBowls = JSON.parse(dataPoint.orderOfBowls);
         dataPoint.bowlsVisitedOrder = JSON.parse(dataPoint.bowlsVisitedOrder);
       }
 
+      //ali charts
       let aliBowlsCheckedBarChart = this.bowlsChecked('Ali', JSON.parse(JSON.stringify(data)), 'aliBowlsCheckedBarChart'); aliBowlsCheckedBarChart.render();
+
+      //comparison charts
+      let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], JSON.parse(JSON.stringify(data)), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
     });
+  }
+
+  deep(data) { return JSON.parse(JSON.stringify(data))}
+
+  nBowlsCheckedCompare(dogs, APIdata, id) {
+    let dogsData = [];
+    for(let i=0; i<dogs.length; i++) {
+      dogsData.push(APIdata.filter(x => {return x.dogName.toLowerCase() == dogs[i].toLowerCase()}));
+    }
+
+    let dogMaps = [];
+    for(let i=0; i<dogsData.length; i++) {
+      for(let j=0; j<dogsData[i].length; j++) {
+        var map = new Map();
+        if(map.has(dogsData[i][j].date)) {
+          let tmp = map.get(dogsData[i][j].date);
+          tmp.push(this.deep(dogsData[i][j]));
+          map.set(dogsData[i][j].date, tmp);
+        } else {
+          let tmp = [];
+          tmp.push(this.deep(dogsData[i][j]));
+          map.set(dogsData[i][j].date, tmp);
+        }
+      }
+      dogMaps.push(map);
+    }
+    console.log(dogMaps)
+    return new CanvasJS.Chart(id, {
+      animationEnabled: true,});
   }
 
   bowlsChecked(dog, APIdata, id) {
     let data = APIdata.filter(x => {return x.dogName.toLowerCase() == dog.toLowerCase()});
 
-    var map:Map<any, any> = new Map();
+    let map:Map<any, any> = new Map();
     for(let d of data) {
       for(let visited of d.bowlsVisitedOrder) {
         if(map.has(visited.bowl)) {
