@@ -41,13 +41,14 @@ export class AppComponent implements OnInit {
       for(let dataPoint of data as any) {
         dataPoint.orderOfBowls = JSON.parse(dataPoint.orderOfBowls);
         dataPoint.bowlsVisitedOrder = JSON.parse(dataPoint.bowlsVisitedOrder);
+        dataPoint.date = new Date(dataPoint.date);
       }
 
       //ali charts
-      let aliBowlsCheckedBarChart = this.bowlsChecked('Ali', JSON.parse(JSON.stringify(data)), 'aliBowlsCheckedBarChart'); aliBowlsCheckedBarChart.render();
+      let aliBowlsCheckedBarChart = this.bowlsChecked('Ali', this.deep(data), 'aliBowlsCheckedBarChart'); aliBowlsCheckedBarChart.render();
 
       //comparison charts
-      let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], JSON.parse(JSON.stringify(data)), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
+      let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
     });
   }
 
@@ -75,9 +76,32 @@ export class AppComponent implements OnInit {
       }
       dogMaps.push(map);
     }
-    console.log(dogMaps)
+
+    let scatterData = [];
+    for(let i=0; i<dogMaps.length; i++) {
+      dogMaps[i].forEach((value, key) => {
+        let datapoints = [];
+        //construct data points
+        datapoints.push({ x: key, y: value.nBowlsVisited });
+        //construct scatter graph
+        scatterData.push({
+          type:"scatter",
+          toolTipContent: "heelloo",
+          name: value.dogName,
+          showInLegend: true,
+          dataPoints: datapoints
+        });
+      });
+    }
+
     return new CanvasJS.Chart(id, {
-      animationEnabled: true,});
+      animationEnabled: true,
+      title: { text: "Number of bowls visited dog comparison" },
+      axisX: { title: "Date" },
+      axisY: { title: "Number Bowls Visited" },
+      data: scatterData
+    
+    });
   }
 
   bowlsChecked(dog, APIdata, id) {
