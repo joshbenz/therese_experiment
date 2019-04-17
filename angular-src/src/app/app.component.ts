@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@ang
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
-
+import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 
 
 @Component({
@@ -106,6 +106,8 @@ export class AppComponent implements OnInit {
   }
 
   downloadData() : void {
-    
+    this._dataService.getDatapoints().subscribe(data => {
+      new Angular5Csv(data, 'My Report');
+    });
   }
 }
