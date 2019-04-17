@@ -67,13 +67,51 @@ export class AppComponent implements OnInit {
         dataPoint.bowlsVisitedOrder = JSON.parse(dataPoint.bowlsVisitedOrder);
       }
 
-      let aliBowlsCheckedBarChart = this.bowlsChecked('Ali', JSON.parse(JSON.stringify(data)))
+      let aliBowlsCheckedBarChart = this.bowlsChecked('Ali', JSON.parse(JSON.stringify(data)), 'aliBowlsCheckedBarChart'); aliBowlsCheckedBarChart.render();
     });
   }
 
-  bowlsChecked(dog, APIdata) {
+  bowlsChecked(dog, APIdata, id) {
     let data = APIdata.filter(x => {return x.dogName.toLowerCase() == dog.toLowerCase()});
-    
+
+    var map:Map<any, any> = new Map();
+    for(let d of data) {
+      for(let visited of d.bowlsVisitedOrder) {
+        if(map.has(visited.bowl)) {
+          let count = map.get(visited.bowl);
+          count++;
+          map.set(visited.bowl, count);
+        } else {
+          map.set(visited.bowl, 1);
+        }
+      }
+    }
+
+    let datapoints = [];
+    map.forEach((value, key) => {
+      datapoints.push({ y: value, label: key });
+    })
+
+    return new  CanvasJS.Chart(id, {
+      animationEnabled: true,
+      theme: "light2",
+
+      title:{
+        text: "Frequency of Bowls Visited by " + dog
+      },
+
+      axisY: {
+        title: "Frequency(# of times visited)"
+      },
+
+      data: [{        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "In case we want a legend here",
+        dataPoints: datapoints
+      }]
+    });
   }
 
   refresh() : void {
