@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
         //construct scatter graph
         scatterData.push({
           type:"scatter",
-          toolTipContent: "heelloo",
+          toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> # of bowls:</b></span> {y}",
           name: value[0].dogName,
           showInLegend: true,
           dataPoints: datapoints
