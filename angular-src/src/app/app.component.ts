@@ -82,12 +82,15 @@ export class AppComponent implements OnInit {
       dogMaps[i].forEach((value, key) => {
         let datapoints = [];
         //construct data points
-        datapoints.push({ x: key, y: value.nBowlsVisited });
+        for(let j=0; j<value.length; j++) {
+          datapoints.push({ x: j+1, y: value[j].nBowlsVisited });
+        }
+        
         //construct scatter graph
         scatterData.push({
           type:"scatter",
           toolTipContent: "heelloo",
-          name: value.dogName,
+          name: value[0].dogName,
           showInLegend: true,
           dataPoints: datapoints
         });
