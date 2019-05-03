@@ -10,7 +10,8 @@ import {MatFormFieldModule,
   MatDatepickerModule,
   MatNativeDateModule,
   MatInputModule,
-  MatSelectModule } from '@angular/material';
+  MatSelectModule,
+  MatTabsModule } from '@angular/material';
   import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
   import { TokenInterceptorService as TokenInterceptor } from './services/token-interceptor.service';
   import { AuthService } from './services/auth.service';
@@ -37,6 +38,7 @@ import {MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
     MatSelectModule,
+    MatTabsModule,
   ],
   providers: [    
     {
