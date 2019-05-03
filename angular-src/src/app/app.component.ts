@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
 
       //ali charts
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
-      this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
+      //this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
 
       //comparison charts
       //let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
@@ -62,12 +62,69 @@ export class AppComponent implements OnInit {
 
   deep(data) { return JSON.parse(JSON.stringify(data))}
 
-  nBowlsCheckedCompare(dogs, APIdata, id) {
-    let dogsData = [];
-    for(let i=0; i<dogs.length; i++) {
+  nBowlsCheckedCompare(APIdata, id) {
+    //let dogsData = [];
+    /*for(let i=0; i<dogs.length; i++) {
       dogsData.push(APIdata.filter(x => {return x.dogName.toLowerCase() == dogs[i].toLowerCase()}));
+    }*/
+
+    let whiteBowlData = APIdata.filter(x => {
+      return ((x.dogName.toLowerCase() == 'ali') &&
+              (x.chickenBowl.toLowerCase() == 'white'))
+    });
+
+    let blueBowlData =  APIdata.filter(x => {
+      return ((x.dogName.toLowerCase() == 'ali') &&
+              (x.chickenBowl.toLowerCase() == 'blue'))
+    });
+
+    let whiteMap = new Map();
+    let blueMap = new Map();
+    for(let i=0; i<whiteBowlData.length; i++) {
+      if(whiteMap.has(whiteBowlData[i].date)) {
+        let tmp = whiteMap.get(whiteBowlData[i].date);
+        tmp.push(whiteBowlData[i]);
+        whiteMap.set(whiteBowlData[i], tmp);
+      } else {
+        let tmp = [];
+        tmp.push(whiteBowlData[i]);
+        whiteMap.set(whiteBowlData[i].date, whiteBowlData[i]);
+      }
     }
 
+    for(let i=0; i<blueBowlData.length; i++) {
+      if(blueMap.has(blueBowlData[i].date)) {
+        let tmp = blueMap.get(blueBowlData[i].date);
+        tmp.push(blueBowlData[i]);
+        blueMap.set(blueBowlData[i], tmp);
+      } else {
+        let tmp = [];
+        tmp.push(blueBowlData[i]);
+        blueMap.set(blueBowlData[i].date, blueBowlData[i]);
+      }
+    }
+
+    let whiteScatterData = [];
+    let blueScatterData = [];
+
+    whiteMap.forEach((value, key) => {
+      for(let i=0; i<value.length; i++) {
+        whiteScatterData.push({ x: i+1, y: value[i] });
+      }
+    });
+
+    blueMap.forEach((value, key) => {
+      for(let i=0; i<value.length; i++) {
+        blueScatterData.push({ x: i+1, y: value[i] });
+      }
+    });
+
+    let scatterData = [{
+      type:"scatter",
+      toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> # of bowls:</b></span> {y}",
+    }];
+
+/*
     let dogMaps = [];
     for(let i=0; i<dogsData.length; i++) {
       for(let j=0; j<dogsData[i].length; j++) {
@@ -104,7 +161,7 @@ export class AppComponent implements OnInit {
         });
       });
     }
-
+*/
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
       title: { text: "Number of bowls visited dog comparison" },
@@ -146,7 +203,7 @@ export class AppComponent implements OnInit {
       if(key.toLowerCase() != bowl) {
         datapoints.push({ y: value, label: key });
       }
-    })
+    });
 
     return new  CanvasJS.Chart(id, {
       animationEnabled: true,
