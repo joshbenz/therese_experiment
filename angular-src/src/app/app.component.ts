@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
       }
 
       //ali charts
-      let aliBowlsCheckedBarChart = this.bowlsChecked('Ali', this.deep(data), 'aliBowlsCheckedBarChart'); aliBowlsCheckedBarChart.render();
+      let aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); aliBowlsCheckedWrongWhenWhiteBowlBarChart.render();
 
       //comparison charts
       let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
@@ -107,8 +107,18 @@ export class AppComponent implements OnInit {
     });
   }
 
-  bowlsChecked(dog, APIdata, id) {
-    let data = APIdata.filter(x => {return x.dogName.toLowerCase() == dog.toLowerCase()});
+  bowlsChecked(bowl, APIdata, id) {
+    let data = APIdata.filter(x => {
+      return ((x.dogName.toLowerCase() == 'ali') &&
+              (x.chickenBowl.toLowerCase() == bowl))
+    });
+
+    let nDataPoints = data.length;
+
+    data = data.filter(x => {
+      return (x.bowlsVisitedOrder.length > 1)
+    });
+    let nWrongBowls = data.length;
 
     let map:Map<any, any> = new Map();
     for(let d of data) {
@@ -125,7 +135,9 @@ export class AppComponent implements OnInit {
 
     let datapoints = [];
     map.forEach((value, key) => {
-      datapoints.push({ y: value, label: key });
+      if(key.toLowerCase() != bowl) {
+        datapoints.push({ y: value, label: key });
+      }
     })
 
     return new  CanvasJS.Chart(id, {
@@ -133,7 +145,7 @@ export class AppComponent implements OnInit {
       theme: "light2",
 
       title:{
-        text: "Frequency of Bowls Visited by " + dog
+        text: "Frequency of Bowls Visited"
       },
 
       axisY: {
@@ -144,7 +156,7 @@ export class AppComponent implements OnInit {
         type: "column",  
         showInLegend: true, 
         legendMarkerColor: "grey",
-        legendText: "In case we want a legend here",
+        legendText: nWrongBowls + " of " + nDataPoints + " data points where she guessed wrong",
         dataPoints: datapoints
       }]
     });
