@@ -46,9 +46,10 @@ export class AppComponent implements OnInit {
 
       //ali charts
       let aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); aliBowlsCheckedWrongWhenWhiteBowlBarChart.render();
+      let aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart'); aliBowlsCheckedWrongWhenBlueBowlBarChart.render();
 
       //comparison charts
-      let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
+      //let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
     });
   }
 
@@ -145,7 +146,7 @@ export class AppComponent implements OnInit {
       theme: "light2",
 
       title:{
-        text: "Frequency of Bowls Visited"
+        text: "Frequency of Bowls Visited " + bowl
       },
 
       axisY: {
