@@ -114,25 +114,15 @@
 
         <mat-card>
           <mat-card-content>
-            <div id="aliBowlsCheckedWrongWhenWhiteBowlBarChart" style="height: 370px; width: 100%;"></div> 
-        </mat-card-content>
-      
-        <mat-card-footer>	
-          <p>Graphs that show the frequency of bowls visited when she did not check the correct chicken bowl on the first try</p>
-        </mat-card-footer>	
-      </mat-card>
-
-      <div><br></div>
-
-      <mat-card>
-          <mat-card-content>
-            <div id="aliBowlsCheckedWrongWhenBlueBowlBarChart" style="height: 370px; width: 100%;"> </div>
-        </mat-card-content>
-      
-        <mat-card-footer>	
-          <p>Graphs that show the frequency of bowls visited when she did not check the correct chicken bowl on the first try</p>
-        </mat-card-footer>	
-      </mat-card>
+              <mat-tab-group #tabGroup (selectedTabChange)="toggleBowlFreqChange($event)">
+                  <mat-tab label="White"> <div id="aliBowlsCheckedWrongWhenWhiteBowlBarChart" style="height: 370px; width: 100%;"></div> </mat-tab>
+                  <mat-tab label="Blue"> <div id="aliBowlsCheckedWrongWhenBlueBowlBarChart" style="height: 370px; width: 100%;"></div> </mat-tab>
+              </mat-tab-group>
+          </mat-card-content>
+          <mat-card-footer>	
+              <p>Graphs that show the frequency of bowls visited when she did not check the correct chicken bowl on the first try</p>
+            </mat-card-footer>
+        </mat-card>
       
       <div><br></div>
 

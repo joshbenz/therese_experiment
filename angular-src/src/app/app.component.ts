@@ -27,6 +27,11 @@ export class AppComponent implements OnInit {
   asdf = 'AliIsTheBest';
   ASDF = false;
 
+  gData;
+  aliBowlsCheckedWrongWhenWhiteBowlBarChart;
+  aliBowlsCheckedWrongWhenBlueBowlBarChart;
+
+
   constructor(private _formBuilder: FormBuilder,
               public _authService: AuthService,
               private _dataService: DataService) {
@@ -44,9 +49,11 @@ export class AppComponent implements OnInit {
         dataPoint.date = new Date(dataPoint.date);
       }
 
+      this.gData = data;
+
       //ali charts
-      let aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); aliBowlsCheckedWrongWhenWhiteBowlBarChart.render();
-      let aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart'); aliBowlsCheckedWrongWhenBlueBowlBarChart.render();
+      this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
+      this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
 
       //comparison charts
       //let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
@@ -290,5 +297,25 @@ export class AppComponent implements OnInit {
     }
 
     return result;
+  }
+
+  toggleBowlFreqChange($event) {
+    switch($event.index) {
+      case 0: {
+        this.aliBowlsCheckedWrongWhenBlueBowlBarChart.destroy();
+        this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(this.gData), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart');
+        this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render();
+      } break;
+
+      case 1: {
+        this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.destroy();
+        this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(this.gData), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
+        this.aliBowlsCheckedWrongWhenBlueBowlBarChart.render();
+      } break;
+     default: {
+      console.log($event);
+    }
+  }
+
   }
 }
