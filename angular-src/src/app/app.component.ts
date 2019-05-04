@@ -54,6 +54,7 @@ export class AppComponent implements OnInit {
       //ali charts
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       //this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
+      let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
 
       //comparison charts
       //let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
@@ -62,7 +63,7 @@ export class AppComponent implements OnInit {
 
   deep(data) { return JSON.parse(JSON.stringify(data))}
 
-  nBowlsCheckedCompare(APIdata, id) {
+  timScatterCompare(APIdata, id) {
     //let dogsData = [];
     /*for(let i=0; i<dogs.length; i++) {
       dogsData.push(APIdata.filter(x => {return x.dogName.toLowerCase() == dogs[i].toLowerCase()}));
@@ -83,24 +84,25 @@ export class AppComponent implements OnInit {
     for(let i=0; i<whiteBowlData.length; i++) {
       if(whiteMap.has(whiteBowlData[i].date)) {
         let tmp = whiteMap.get(whiteBowlData[i].date);
-        tmp.push(whiteBowlData[i]);
+        tmp.push(this.deep(whiteBowlData[i]));
         whiteMap.set(whiteBowlData[i], tmp);
       } else {
         let tmp = [];
-        tmp.push(whiteBowlData[i]);
-        whiteMap.set(whiteBowlData[i].date, whiteBowlData[i]);
+        tmp.push(this.deep(whiteBowlData[i]));
+        whiteMap.set(whiteBowlData[i].date, tmp);
       }
     }
+    console.log(whiteMap)
 
     for(let i=0; i<blueBowlData.length; i++) {
       if(blueMap.has(blueBowlData[i].date)) {
         let tmp = blueMap.get(blueBowlData[i].date);
-        tmp.push(blueBowlData[i]);
+        tmp.push(this.deep(blueBowlData[i]));
         blueMap.set(blueBowlData[i], tmp);
       } else {
         let tmp = [];
-        tmp.push(blueBowlData[i]);
-        blueMap.set(blueBowlData[i].date, blueBowlData[i]);
+        tmp.push(this.deep(blueBowlData[i]));
+        blueMap.set(blueBowlData[i].date, tmp);
       }
     }
 
@@ -122,6 +124,15 @@ export class AppComponent implements OnInit {
     let scatterData = [{
       type:"scatter",
       toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> # of bowls:</b></span> {y}",
+      name: 'Blue Bowl',
+      showInLegend: true,
+      dataPoints: blueScatterData
+    }, {
+      type:"scatter",
+      toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> # of bowls:</b></span> {y}",
+      name: 'White Bowl',
+      showInLegend: true,
+      dataPoints: whiteScatterData
     }];
 
 /*
@@ -164,9 +175,9 @@ export class AppComponent implements OnInit {
 */
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
-      title: { text: "Number of bowls visited dog comparison" },
+      title: { text: "Time" },
       axisX: { title: "Date" },
-      axisY: { title: "Number Bowls Visited" },
+      axisY: { title: "Time" },
       data: scatterData
     
     });
