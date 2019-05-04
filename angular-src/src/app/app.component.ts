@@ -122,19 +122,19 @@ export class AppComponent implements OnInit {
       for(let i=0; i<value.length; i++) {
         blueScatterData.push({ x: counter+1, y: value[i].timeToChicken });
       }
+      counter++;
     });
 
-    console.log(whiteScatterData);
 
     let scatterData = [{
       type:"scatter",
-      toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> # of bowls:</b></span> {y}",
+      toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> Time:</b></span> {y}",
       name: 'Blue Bowl',
       showInLegend: true,
       dataPoints: blueScatterData
     }, {
       type:"scatter",
-      toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> # of bowls:</b></span> {y}",
+      toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> Time:</b></span> {y}",
       name: 'White Bowl',
       showInLegend: true,
       dataPoints: whiteScatterData
@@ -180,9 +180,9 @@ export class AppComponent implements OnInit {
 */
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
-      title: { text: "Time" },
-      axisX: { title: "Date" },
-      axisY: { title: "Time" },
+      title: { text: "Time to Chicken Bowl Per Day" },
+      axisX: { title: "Day #" },
+      axisY: { title: "Time to Chicken Bowl" },
       data: scatterData
     
     });
