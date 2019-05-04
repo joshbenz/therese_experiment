@@ -85,20 +85,21 @@ export class AppComponent implements OnInit {
       if(whiteMap.has(whiteBowlData[i].date)) {
         let tmp = whiteMap.get(whiteBowlData[i].date);
         tmp.push(this.deep(whiteBowlData[i]));
-        whiteMap.set(whiteBowlData[i], tmp);
+        whiteMap.set(whiteBowlData[i].date, tmp);
       } else {
         let tmp = [];
         tmp.push(this.deep(whiteBowlData[i]));
         whiteMap.set(whiteBowlData[i].date, tmp);
       }
     }
+
     console.log(whiteMap)
 
     for(let i=0; i<blueBowlData.length; i++) {
       if(blueMap.has(blueBowlData[i].date)) {
         let tmp = blueMap.get(blueBowlData[i].date);
         tmp.push(this.deep(blueBowlData[i]));
-        blueMap.set(blueBowlData[i], tmp);
+        blueMap.set(blueBowlData[i].date, tmp);
       } else {
         let tmp = [];
         tmp.push(this.deep(blueBowlData[i]));
