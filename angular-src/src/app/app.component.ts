@@ -31,6 +31,10 @@ export class AppComponent implements OnInit {
   aliBowlsCheckedWrongWhenWhiteBowlBarChart;
   aliBowlsCheckedWrongWhenBlueBowlBarChart;
 
+  isInitialOrderMatterWhite;
+  isInitialOrderMatterBlue;
+  isInitialOrderMatterAll;
+
 
   constructor(private _formBuilder: FormBuilder,
               public _authService: AuthService,
@@ -52,9 +56,8 @@ export class AppComponent implements OnInit {
 
       //ali charts
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
-      //this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
-      let isInitialOrderMatter = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatter'); isInitialOrderMatter.render();
+      this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatterWhite'); this.isInitialOrderMatterWhite.render();
 
     });
   }
@@ -85,7 +88,7 @@ export class AppComponent implements OnInit {
         });
       } break;
 
-      default: return; break;
+      default: return;
     }
 
     let map = new Map();
@@ -107,12 +110,9 @@ export class AppComponent implements OnInit {
     }
 
     let plotData = [];
-    let counter = 0;
     map.forEach((value, key) => {
       plotData.push({ label: key, y: value });
-      counter++;
     });
-    console.log(plotData)
 
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
@@ -126,9 +126,6 @@ export class AppComponent implements OnInit {
         dataPoints: plotData
       }] 
     });
-    //did it matter for the blue bowl
-    //did it matter for the white bowl
-    //combined?
   }  
 
   timScatterCompare(APIdata, id) {
@@ -439,6 +436,44 @@ export class AppComponent implements OnInit {
       console.log($event);
     }
   }
-
   }
+
+  toggleisInitialOrderMatter($event) {
+    switch($event.index) {
+      case 0: {
+        this.destroyGraph(this.isInitialOrderMatterWhite);
+        this.destroyGraph(this.isInitialOrderMatterBlue);
+        this.destroyGraph(this.isInitialOrderMatterAll);
+
+        this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(this.gData), 'white', 'isInitialOrderMatterWhite');
+        this.isInitialOrderMatterWhite.render();        
+      } break;
+
+      case 1: {
+        this.destroyGraph(this.isInitialOrderMatterWhite);
+        this.destroyGraph(this.isInitialOrderMatterBlue);
+        this.destroyGraph(this.isInitialOrderMatterAll);
+
+        this.isInitialOrderMatterBlue = this.doesInitOrderMatter(this.deep(this.gData), 'blue', 'isInitialOrderMatterBlue');
+        this.isInitialOrderMatterBlue.render();
+      } break;
+
+      case 2: {
+        this.destroyGraph(this.isInitialOrderMatterWhite);
+        this.destroyGraph(this.isInitialOrderMatterBlue);
+        this.destroyGraph(this.isInitialOrderMatterAll);
+
+        this.isInitialOrderMatterAll = this.doesInitOrderMatter(this.deep(this.gData), 'all', 'isInitialOrderMatterAll');
+        this.isInitialOrderMatterAll.render();
+      } break;
+     default: {
+      console.log($event);
+    }
+  }
+}
+
+  destroyGraph(graphInstance) {
+    if(graphInstance) graphInstance.destroy();
+  }
+
 }

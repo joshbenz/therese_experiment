@@ -114,7 +114,7 @@
 
         <mat-card>
           <mat-card-content>
-              <mat-tab-group #tabGroup (selectedTabChange)="toggleBowlFreqChange($event)">
+              <mat-tab-group (selectedTabChange)="toggleBowlFreqChange($event)">
                   <mat-tab label="White"> <div id="aliBowlsCheckedWrongWhenWhiteBowlBarChart" style="height: 370px; width: 100%;"></div> </mat-tab>
                   <mat-tab label="Blue"> <div id="aliBowlsCheckedWrongWhenBlueBowlBarChart" style="height: 370px; width: 100%;"></div> </mat-tab>
               </mat-tab-group>
@@ -139,12 +139,17 @@
 
       <mat-card>
           <mat-card-content>
-              <div id="isInitialOrderMatter" style="height: 370px; width: 100%;"></div>
-        </mat-card-content>
-        <mat-card-footer>	
+              <mat-tab-group (selectedTabChange)="toggleisInitialOrderMatter($event)"> 
+                  <mat-tab label="White"> <div id="isInitialOrderMatterWhite" style="height: 370px; width: 100%;"></div> </mat-tab>
+                  <mat-tab label="Blue"> <div id="isInitialOrderMatterBlue" style="height: 370px; width: 100%;"></div> </mat-tab>
+                  <mat-tab label="All"> <div id="isInitialOrderMatterAll" style="height: 370px; width: 100%;"></div> </mat-tab>
+              </mat-tab-group>
+          </mat-card-content>
+          <mat-card-footer>	
             <p>Does the initial order of the bowls matter?</p>
           </mat-card-footer>
-      </mat-card>      
+      </mat-card>
+    
 
     </main>
 
