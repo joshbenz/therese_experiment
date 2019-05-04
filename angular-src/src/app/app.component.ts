@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
 import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 import * as CanvasJS from './canvasjs.min';
@@ -24,7 +23,7 @@ export class AppComponent implements OnInit {
   isloggingIn = false;
   email = '';
   password='';
-  asdf = 'AliIsTheBest';
+  asdf = 'short7';
   ASDF = false;
 
   gData;
@@ -37,7 +36,6 @@ export class AppComponent implements OnInit {
 
 
   constructor(private _formBuilder: FormBuilder,
-              public _authService: AuthService,
               private _dataService: DataService) {
   }
 
@@ -348,7 +346,6 @@ export class AppComponent implements OnInit {
 
   loginSubmit() : void {
     if(this.password == this.asdf) this.ASDF = true;
-   // this._authService.login(this.email, this.password).subscribe(t => console.log(t));
     this.isloggingIn = false;
     this.password = '';
   }
