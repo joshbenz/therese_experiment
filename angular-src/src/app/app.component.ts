@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log(localStorage.getItem('auth'))
     this.dataForm = this.createForm();
     this.refresh();
 
@@ -55,19 +54,78 @@ export class AppComponent implements OnInit {
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       //this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
+      let isInitialOrderMatter = this.doesInitOrderMatter(this.deep(data), 'isInitialOrderMatter');
 
-      //comparison charts
-      //let nBowlsCheckedScatterCompare = this.nBowlsCheckedCompare(['Ali'], this.deep(data), 'nBowlsCheckedScatterCompare'); nBowlsCheckedScatterCompare.render();
     });
   }
 
   deep(data) { return JSON.parse(JSON.stringify(data))}
 
+  doesInitOrderMatter(APIdata, id) {
+    let whiteBowlData = APIdata.filter(x => {
+      return ((x.dogName.toLowerCase() == 'ali') &&
+              (x.chickenBowl.toLowerCase() == 'white'))
+    });
+
+    let blueBowlData =  APIdata.filter(x => {
+      return ((x.dogName.toLowerCase() == 'ali') &&
+              (x.chickenBowl.toLowerCase() == 'blue'))
+    });
+    let whiteMap = new Map();
+    let blueMap = new Map();
+    for(let i=0; i<whiteBowlData.length; i++) {
+      let bowlOrder = '';
+      for(let j=0; j<whiteBowlData[i].orderOfBowls.length; j++) {
+        bowlOrder = bowlOrder + whiteBowlData[i].orderOfBowls[j].bowl.trim() + ' ';
+      }
+
+      bowlOrder = bowlOrder.trim();
+
+      if(whiteMap.has(bowlOrder)) {
+        let tmp = whiteMap.get(bowlOrder);
+        tmp += whiteBowlData[i].nBowlsVisited;
+        whiteMap.set(bowlOrder as string, tmp);
+      } else {
+        whiteMap.set(bowlOrder as string, whiteBowlData[i].nBowlsVisited);
+      }
+    }
+
+    for(let i=0; i<blueBowlData.length; i++) {
+      let bowlOrder = '';
+      for(let j=0; j<blueBowlData[i].orderOfBowls.length; j++) {
+        bowlOrder = bowlOrder + blueBowlData[i].orderOfBowls[j].bowl.trim() + ' ';
+      }
+
+      bowlOrder = bowlOrder.trim();
+
+      if(blueMap.has(bowlOrder)) {
+        let tmp = blueMap.get(bowlOrder);
+        tmp += blueBowlData[i].nBowlsVisited;
+        blueMap.set(bowlOrder as string, tmp);
+      } else {
+        blueMap.set(bowlOrder as string, blueBowlData[i].nBowlsVisited);
+      }
+    }
+
+    let allMap = new Map(whiteMap);
+
+    blueMap.forEach((value, key) => {
+      if(allMap.has(key)) {
+        let tmp = allMap.get(key);
+        tmp += value;
+        allMap.set(key, tmp);
+      } else {
+        allMap.set(key, value);
+      }
+    });
+
+    console.log(allMap)
+    //did it matter for the blue bowl
+    //did it matter for the white bowl
+    //combined?
+  }  
+
   timScatterCompare(APIdata, id) {
-    //let dogsData = [];
-    /*for(let i=0; i<dogs.length; i++) {
-      dogsData.push(APIdata.filter(x => {return x.dogName.toLowerCase() == dogs[i].toLowerCase()}));
-    }*/
 
     let whiteBowlData = APIdata.filter(x => {
       return ((x.dogName.toLowerCase() == 'ali') &&
