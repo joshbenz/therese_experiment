@@ -109,19 +109,30 @@ export class AppComponent implements OnInit {
     let whiteScatterData = [];
     let blueScatterData = [];
 
+    let whiteAvgs = [];
+    let blueAvgs = [];
+
     let counter = 0;
     whiteMap.forEach((value, key) => {
+      let sum = 0;
       for(let i=0; i<value.length; i++) {
         whiteScatterData.push({ x: counter+1, y: value[i].timeToChicken });
+        sum += value[i].timeToChicken;
       }
+      let avg = (sum / value.length);
+      whiteAvgs.push({ x: counter+1, y: avg });
       counter++;
     });
 
     counter = 0;
     blueMap.forEach((value, key) => {
+      let sum = 0;
       for(let i=0; i<value.length; i++) {
         blueScatterData.push({ x: counter+1, y: value[i].timeToChicken });
+        sum += value[i].timeToChicken;
       }
+      let avg = (sum / value.length);
+      blueAvgs.push({ x: counter+1, y: avg });
       counter++;
     });
 
@@ -138,46 +149,21 @@ export class AppComponent implements OnInit {
       name: 'White Bowl',
       showInLegend: true,
       dataPoints: whiteScatterData
+    }, {
+      type:"line",
+      toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> Time:</b></span> {y}",
+      name: 'White Bowl AVG',
+      showInLegend: true,
+      dataPoints: whiteAvgs
+    }, {
+    type:"line",
+    toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> Time:</b></span> {y}",
+    name: 'Blue Bowl AVG',
+    showInLegend: true,
+    dataPoints: blueAvgs
     }];
 
-/*
-    let dogMaps = [];
-    for(let i=0; i<dogsData.length; i++) {
-      for(let j=0; j<dogsData[i].length; j++) {
-        var map = new Map();
-        if(map.has(dogsData[i][j].date)) {
-          let tmp = map.get(dogsData[i][j].date);
-          tmp.push(this.deep(dogsData[i][j]));
-          map.set(dogsData[i][j].date, tmp);
-        } else {
-          let tmp = [];
-          tmp.push(this.deep(dogsData[i][j]));
-          map.set(dogsData[i][j].date, tmp);
-        }
-      }
-      dogMaps.push(map);
-    }
 
-    let scatterData = [];
-    for(let i=0; i<dogMaps.length; i++) {
-      dogMaps[i].forEach((value, key) => {
-        let datapoints = [];
-        //construct data points
-        for(let j=0; j<value.length; j++) {
-          datapoints.push({ x: j+1, y: value[j].nBowlsVisited });
-        }
-        
-        //construct scatter graph
-        scatterData.push({
-          type:"scatter",
-          toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Day:</b> {x} <br/><b> # of bowls:</b></span> {y}",
-          name: value[0].dogName,
-          showInLegend: true,
-          dataPoints: datapoints
-        });
-      });
-    }
-*/
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
       title: { text: "Time to Chicken Bowl Per Day" },
