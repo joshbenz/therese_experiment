@@ -54,72 +54,60 @@ export class AppComponent implements OnInit {
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       //this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
-      let isInitialOrderMatter = this.doesInitOrderMatter(this.deep(data), 'isInitialOrderMatter');
+      let isInitialOrderMatter = this.doesInitOrderMatter(this.deep(data), 'blue', 'isInitialOrderMatter');
 
     });
   }
 
   deep(data) { return JSON.parse(JSON.stringify(data))}
 
-  doesInitOrderMatter(APIdata, id) {
-    let whiteBowlData = APIdata.filter(x => {
-      return ((x.dogName.toLowerCase() == 'ali') &&
-              (x.chickenBowl.toLowerCase() == 'white'))
-    });
+  doesInitOrderMatter(APIdata, bowl, id) {
+    let data = [];
 
-    let blueBowlData =  APIdata.filter(x => {
-      return ((x.dogName.toLowerCase() == 'ali') &&
-              (x.chickenBowl.toLowerCase() == 'blue'))
-    });
-    let whiteMap = new Map();
-    let blueMap = new Map();
-    for(let i=0; i<whiteBowlData.length; i++) {
+    switch(bowl) {
+      case 'blue': {
+        data = APIdata.filter(x => {
+          return ((x.dogName.toLowerCase() == 'ali') &&
+                  (x.chickenBowl.toLowerCase() == 'blue'))
+        });
+      } break;
+
+      case 'white': {
+        data = APIdata.filter(x => {
+          return ((x.dogName.toLowerCase() == 'ali') &&
+                  (x.chickenBowl.toLowerCase() == 'white'))
+        });
+      } break;
+
+      case 'all': {
+        data = APIdata.filter(x => {
+          return ((x.dogName.toLowerCase() == 'ali'))
+        });
+      } break;
+
+      default: return; break;
+    }
+
+
+    let map = new Map();
+    for(let i=0; i<data.length; i++) {
       let bowlOrder = '';
-      for(let j=0; j<whiteBowlData[i].orderOfBowls.length; j++) {
-        bowlOrder = bowlOrder + whiteBowlData[i].orderOfBowls[j].bowl.trim() + ' ';
+      for(let j=0; j<data[i].orderOfBowls.length; j++) {
+        bowlOrder = bowlOrder + data[i].orderOfBowls[j].bowl.trim() + ' ';
       }
 
       bowlOrder = bowlOrder.trim();
 
-      if(whiteMap.has(bowlOrder)) {
-        let tmp = whiteMap.get(bowlOrder);
-        tmp += whiteBowlData[i].nBowlsVisited;
-        whiteMap.set(bowlOrder as string, tmp);
+      if(map.has(bowlOrder)) {
+        let tmp = map.get(bowlOrder);
+        tmp += data[i].nBowlsVisited;
+        map.set(bowlOrder as string, tmp);
       } else {
-        whiteMap.set(bowlOrder as string, whiteBowlData[i].nBowlsVisited);
+        map.set(bowlOrder as string, data[i].nBowlsVisited);
       }
     }
 
-    for(let i=0; i<blueBowlData.length; i++) {
-      let bowlOrder = '';
-      for(let j=0; j<blueBowlData[i].orderOfBowls.length; j++) {
-        bowlOrder = bowlOrder + blueBowlData[i].orderOfBowls[j].bowl.trim() + ' ';
-      }
-
-      bowlOrder = bowlOrder.trim();
-
-      if(blueMap.has(bowlOrder)) {
-        let tmp = blueMap.get(bowlOrder);
-        tmp += blueBowlData[i].nBowlsVisited;
-        blueMap.set(bowlOrder as string, tmp);
-      } else {
-        blueMap.set(bowlOrder as string, blueBowlData[i].nBowlsVisited);
-      }
-    }
-
-    let allMap = new Map(whiteMap);
-
-    blueMap.forEach((value, key) => {
-      if(allMap.has(key)) {
-        let tmp = allMap.get(key);
-        tmp += value;
-        allMap.set(key, tmp);
-      } else {
-        allMap.set(key, value);
-      }
-    });
-
-    console.log(allMap)
+    console.log(map)
     //did it matter for the blue bowl
     //did it matter for the white bowl
     //combined?
