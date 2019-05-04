@@ -93,7 +93,6 @@ export class AppComponent implements OnInit {
       }
     }
 
-    console.log(whiteMap)
 
     for(let i=0; i<blueBowlData.length; i++) {
       if(blueMap.has(blueBowlData[i].date)) {
@@ -110,17 +109,22 @@ export class AppComponent implements OnInit {
     let whiteScatterData = [];
     let blueScatterData = [];
 
+    let counter = 0;
     whiteMap.forEach((value, key) => {
       for(let i=0; i<value.length; i++) {
-        whiteScatterData.push({ x: i+1, y: value[i] });
+        whiteScatterData.push({ x: counter+1, y: value[i].timeToChicken });
+      }
+      counter++;
+    });
+
+    counter = 0;
+    blueMap.forEach((value, key) => {
+      for(let i=0; i<value.length; i++) {
+        blueScatterData.push({ x: counter+1, y: value[i].timeToChicken });
       }
     });
 
-    blueMap.forEach((value, key) => {
-      for(let i=0; i<value.length; i++) {
-        blueScatterData.push({ x: i+1, y: value[i] });
-      }
-    });
+    console.log(whiteScatterData);
 
     let scatterData = [{
       type:"scatter",
