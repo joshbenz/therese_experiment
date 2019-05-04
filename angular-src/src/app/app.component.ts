@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       //this.aliBowlsCheckedWrongWhenBlueBowlBarChart = this.bowlsChecked('blue', this.deep(data), 'aliBowlsCheckedWrongWhenBlueBowlBarChart');
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
-      let isInitialOrderMatter = this.doesInitOrderMatter(this.deep(data), 'blue', 'isInitialOrderMatter');
+      let isInitialOrderMatter = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatter'); isInitialOrderMatter.render();
 
     });
   }
@@ -88,7 +88,6 @@ export class AppComponent implements OnInit {
       default: return; break;
     }
 
-
     let map = new Map();
     for(let i=0; i<data.length; i++) {
       let bowlOrder = '';
@@ -107,7 +106,26 @@ export class AppComponent implements OnInit {
       }
     }
 
-    console.log(map)
+    let plotData = [];
+    let counter = 0;
+    map.forEach((value, key) => {
+      plotData.push({ label: key, y: value });
+      counter++;
+    });
+    console.log(plotData)
+
+    return new CanvasJS.Chart(id, {
+      animationEnabled: true,
+      title: { text: "Initial Order VS # Bowls Visited" },
+      axisX: { title: "Inital Order", labelAngle: -60,  interval: 1},
+      axisY: { title: "# of visits", includeZero: false },
+      data:  [{ type: "line",
+        toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Order:</b> {label} <br/><b> Visits:</b></span> {y}",
+        name: bowl + ' Bowl',
+        showInLegend: true,
+        dataPoints: plotData
+      }] 
+    });
     //did it matter for the blue bowl
     //did it matter for the white bowl
     //combined?
