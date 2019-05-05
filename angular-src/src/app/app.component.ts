@@ -5,6 +5,17 @@ import { DataService } from './services/data.service';
 import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 import * as CanvasJS from './canvasjs.min';
 
+interface DogData {
+  date : any;
+  dogName: string;
+  orderOfBowls: any;
+  chickenBowl: string;
+  nBowlsVisited: number;
+  bowlsVisitedOrder: any;
+  timeToChicken: number;
+  comments: any;
+};
+
 
 @Component({
   selector: 'app-root',
@@ -49,6 +60,7 @@ export class AppComponent implements OnInit {
         dataPoint.bowlsVisitedOrder = JSON.parse(dataPoint.bowlsVisitedOrder);
         dataPoint.date = new Date(dataPoint.date);
       }
+      data.sort(function(a:DogData, b:DogData){return new Date(a.date).getTime() - new Date(b.date).getTime()});
 
       this.gData = data;
 
@@ -401,6 +413,7 @@ export class AppComponent implements OnInit {
       new Angular5Csv(dataPoints, "Report", options);
     });
   }
+
 
   bowlsToString(arr: any) : string {
     let result = "";
