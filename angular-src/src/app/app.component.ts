@@ -61,7 +61,6 @@ export class AppComponent implements OnInit {
         dataPoint.date = new Date(dataPoint.date);
       }
       data.sort(function(a:DogData, b:DogData){return new Date(a.date).getTime() - new Date(b.date).getTime()});
-      console.log(data);
       this.gData = data;
 
       //ali charts
