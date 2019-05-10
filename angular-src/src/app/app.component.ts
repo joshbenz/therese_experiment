@@ -505,18 +505,37 @@ export class AppComponent implements OnInit {
     }
 
     let bodyData = [[{text: 'Day', style: 'tableHeader', alignment: 'center'}, 
-    {text: 'init order', style: 'tableHeader', alignment: 'center'}, 
-    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
-    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
-    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
-    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
-    {text: 'Header 3', style: 'tableHeader', alignment: 'center'}]];
+    {text: 'Chicken Bowl', style: 'tableHeader', alignment: 'center'}, 
+    {text: 'Inital Order', style: 'tableHeader', alignment: 'center'},
+    {text: '# Bowls Visited', style: 'tableHeader', alignment: 'center'},
+    {text: 'Visited Order', style: 'tableHeader', alignment: 'center'},
+    {text: 'Time', style: 'tableHeader', alignment: 'center'},
+    {text: 'Comments', style: 'tableHeader', alignment: 'center'}]];
 
     map.forEach((value, key) => {
-      let row :any = ['', '', '', '', '', '', ''];
-      for(let i=0; i<value.length; i++) {
+      //let row :any = ['', '', '', '', '', '', ''];
+      let row :any = [];
+
+      let day: any = {};
+      //let rowData = [];
+      //rowData.push(' ');
+      if(value.length > 0) {
+        day.rowSpan = value.length;
+        day.text = key;
+        row.push(day);
+
+        row.push(value[0].chickenBowl);
+        row.push("Order of bowls");
+        row.push(value[0].nBowlsVisited);
+        row.push("visited order");
+        row.push(value[0].timeToChicken);
+        row.push("asdf");
+
         bodyData.push(row);
+        row = [];
       }
+
+
     });
 /*
     map.forEach((value, key) => {
