@@ -513,6 +513,13 @@ export class AppComponent implements OnInit {
     {text: 'Header 3', style: 'tableHeader', alignment: 'center'}]];
 
     map.forEach((value, key) => {
+      let row :any = ['', '', '', '', '', '', ''];
+      for(let i=0; i<value.length; i++) {
+        bodyData.push(row);
+      }
+    });
+/*
+    map.forEach((value, key) => {
       let day: any = {};
       let rowData = [];
       rowData.push(' ');
@@ -548,11 +555,11 @@ export class AppComponent implements OnInit {
        } else {
         rowData.push("None");
        }
-       bodyData.push(rowData);
       }
-    });
+      bodyData.push(rowData);
+    });*/
 
-    console.log(bodyData);
+    console.log(bodyData[1]);
 
     var dd = {
       content: [
