@@ -126,8 +126,8 @@ export class AppComponent implements OnInit {
 
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
-      title: { text: "Initial Order VS # Bowls Visited" },
-      axisX: { title: "Inital Order", labelAngle: -60,  interval: 1},
+      title: { text: "Bowl Configuration VS # Bowls Visited" },
+      axisX: { title: "Configuration", labelAngle: -60,  interval: 1},
       axisY: { title: "# of visits", includeZero: false },
       data:  [{ type: "line",
         toolTipContent: "<span style=\"color:#C0504E \"><b>{name}</b></span><br/><b> Order:</b> {label} <br/><b> Visits:</b></span> {y}",
