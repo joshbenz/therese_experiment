@@ -514,15 +514,13 @@ export class AppComponent implements OnInit {
 
     let counter = 1;
     map.forEach((value, key) => {
-      //let row :any = ['', '', '', '', '', '', ''];
       let row :any = [];
 
       let day: any = {};
-      //let rowData = [];
-      //rowData.push(' ');
       if(value.length > 0) {
         day.rowSpan = value.length;
-        day.text = "Day " + counter + ": " + key;
+        let date = new Date(key);
+        day.text = "Day " + counter + ": " + date.getMonth() + "/" + date.getDay() + "/" + date.getFullYear();
         row.push(day);
 
         row.push(value[0].chickenBowl);
@@ -564,12 +562,9 @@ export class AppComponent implements OnInit {
     var dd = {
       content: [
       {
-        //style: 'tableExample',
-        //color: '#444',
         table: {
           widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
-          //headerRows: 2,
-          // keepWithHeaderRows: 1,
+          headerRows: 1,
           body: bodyData
         }
       }],
