@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
       this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatterWhite'); this.isInitialOrderMatterWhite.render();
-
+      this.generatePdf();
     });
   }
 
@@ -486,9 +486,48 @@ export class AppComponent implements OnInit {
   generatePdf() {
     let data = this.deep(this.gData);
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
-    let dd = {};
+
+    let aliData = data.filter(x => {
+      return (x.dogName.toLowerCase() == 'ali')
+    });
+
+    let map = new Map();
+    for(let i=0; i<aliData.length; i++) {
+      if(map.has(aliData[i].date)) {
+        let tmp = map.get(aliData[i].date);
+        tmp.push(this.deep(aliData[i]));
+        map.set(aliData[i].date, tmp);
+      } else {
+        let tmp = [];
+        tmp.push(this.deep(aliData[i]));
+        map.set(aliData[i].date, tmp);
+      }
+    }
+
+    var dd = {
+      content: [
+      {
+        //style: 'tableExample',
+        //color: '#444',
+        table: {
+          widths: [200, 'auto', 'auto'],
+          //headerRows: 2,
+          // keepWithHeaderRows: 1,
+          body: [
+            [{text: 'Day', style: 'tableHeader', alignment: 'center'}, {text: 'init order', style: 'tableHeader', alignment: 'center'}, {text: 'Header 3', style: 'tableHeader', alignment: 'center'}],
+            //['Sample value 1', 'Sample value 2', 'Sample value 3'],
+            [{rowSpan: 3, text: 'Day 1'}, 'Sample value 2', 'Sample value 3'],
+            ['', 'Sample value 2', 'Sample value 3'],
+            ['Sample value 1', 'Sample value 2', 'Sample value 3'],
+            //['Sample value 1', {colSpan: 2, rowSpan: 2, text: 'Both:\nrowSpan and colSpan\ncan be defined at the same time'}, ''],
+            //['Sample value 1', '', ''],
+          ]
+        }
+      }],
+    };
 
     pdfMake.createPdf(dd).download();
+    console.log('asdf')
   }
 
   destroyGraph(graphInstance) {
