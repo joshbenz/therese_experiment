@@ -504,30 +504,71 @@ export class AppComponent implements OnInit {
       }
     }
 
+    let bodyData = [[{text: 'Day', style: 'tableHeader', alignment: 'center'}, 
+    {text: 'init order', style: 'tableHeader', alignment: 'center'}, 
+    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
+    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
+    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
+    {text: 'Header 3', style: 'tableHeader', alignment: 'center'},
+    {text: 'Header 3', style: 'tableHeader', alignment: 'center'}]];
+
+    map.forEach((value, key) => {
+      let day: any = {};
+      let rowData = [];
+      rowData.push(' ');
+      if(value.length > 0) {
+        day.rowSpan = value.length;
+        day.text = key;
+        rowData.push(day);
+      }
+
+      for(let i=0; i<value.length; i++) {
+        rowData.push(value[i].chickenBowl);
+       //sum += value[i].timeToChicken;
+       let bowlOrder = "";
+       for(let j=0; j<value[i].orderOfBowls.length; j++) {
+          bowlOrder = bowlOrder + value[i].orderOfBowls[j].bowl + " ";
+       }
+       bowlOrder = bowlOrder.trim();
+       rowData.push(bowlOrder);
+
+       rowData.push(value[i].nBowlsVisited);
+
+       let visited = "";
+       for(let j=0; j<value[i].bowlsVisitedOrder.length; j++) {
+        visited = visited + value[i].bowlsVisitedOrder[j].bowl + " ";
+       }
+       visited = visited.trim();
+       rowData.push(visited);
+       rowData.push(value[i].timeToChicken);
+       rowData.push(value[i].timeToChicken);
+
+       if(value[i].comments.length>0) {
+        rowData.push(value[i].comments);
+       } else {
+        rowData.push("None");
+       }
+       bodyData.push(rowData);
+      }
+    });
+
+    console.log(bodyData);
+
     var dd = {
       content: [
       {
         //style: 'tableExample',
         //color: '#444',
         table: {
-          widths: [200, 'auto', 'auto'],
+          widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
           //headerRows: 2,
           // keepWithHeaderRows: 1,
-          body: [
-            [{text: 'Day', style: 'tableHeader', alignment: 'center'}, {text: 'init order', style: 'tableHeader', alignment: 'center'}, {text: 'Header 3', style: 'tableHeader', alignment: 'center'}],
-            //['Sample value 1', 'Sample value 2', 'Sample value 3'],
-            [{rowSpan: 3, text: 'Day 1'}, 'Sample value 2', 'Sample value 3'],
-            ['', 'Sample value 2', 'Sample value 3'],
-            ['Sample value 1', 'Sample value 2', 'Sample value 3'],
-            //['Sample value 1', {colSpan: 2, rowSpan: 2, text: 'Both:\nrowSpan and colSpan\ncan be defined at the same time'}, ''],
-            //['Sample value 1', '', ''],
-          ]
+          body: bodyData
         }
       }],
     };
 
     pdfMake.createPdf(dd).download();
-    console.log('asdf')
   }
 
   destroyGraph(graphInstance) {
@@ -535,3 +576,14 @@ export class AppComponent implements OnInit {
   }
 
 }
+/*
+interface DogData {
+  date : any;
+  dogName: string;
+  orderOfBowls: any;
+  chickenBowl: string;
+  nBowlsVisited: number;
+  bowlsVisitedOrder: any;
+  timeToChicken: number;
+  comments: any;
+};*/
