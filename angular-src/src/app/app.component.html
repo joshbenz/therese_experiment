@@ -12,7 +12,8 @@
       <!--<p>test</p>-->
       
       <button *ngIf="ASDF" type="button" (click)="addData()" class="btn btn-light">Add Data</button>
-      <button *ngIf="ASDF" type="button" (click)="downloadData()" class="btn btn-light">Download Data</button>
+      <button *ngIf="ASDF" type="button" (click)="downloadData()" class="btn btn-light">Download Data CSV</button>
+      <button *ngIf="ASDF" type="button" (click)="generatePdf()" class="btn btn-light">Download Data PDF</button>
       <button *ngIf="!ASDF" type="button" (click)="login()" class="btn btn-light">Login</button>
 
       <mat-card *ngIf="isloggingIn">
