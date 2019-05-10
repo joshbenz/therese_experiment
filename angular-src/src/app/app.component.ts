@@ -422,12 +422,12 @@ export class AppComponent implements OnInit {
     for(let b of arr) {
       if(b) {
         if(b.bowl) {
-          result = result + b.bowl + "-";
+          result = result + b.bowl + " ";
         }
       }
     }
 
-    return result;
+    return result.trim();
   }
 
   toggleBowlFreqChange($event) {
@@ -526,11 +526,16 @@ export class AppComponent implements OnInit {
         row.push(day);
 
         row.push(value[0].chickenBowl);
-        row.push("Order of bowls");
+        row.push(this.bowlsToString(value[0].orderOfBowls));
         row.push(value[0].nBowlsVisited);
-        row.push("visited order");
+        row.push(this.bowlsToString(value[0].bowlsVisitedOrder));
         row.push(value[0].timeToChicken);
-        row.push("asdf");
+        
+        if(value[0].comments.length > 0) {
+          row.push(value[0].comments);
+        } else {
+          row.push("None");
+        }
 
         bodyData.push(row);
         row = [];
@@ -540,11 +545,16 @@ export class AppComponent implements OnInit {
         row = [];
         row.push(" ");
         row.push(value[i].chickenBowl);
-        row.push("Order of bowls");
+        row.push(this.bowlsToString(value[i].orderOfBowls));
         row.push(value[i].nBowlsVisited);
-        row.push("visited order");
+        row.push(this.bowlsToString(value[i].bowlsVisitedOrder));
         row.push(value[i].timeToChicken);
-        row.push("asdf");
+        
+        if(value[i].comments.length > 0) {
+          row.push(value[i].comments);
+        } else {
+          row.push("None");
+        }
         bodyData.push(row);
       }
       counter++;
