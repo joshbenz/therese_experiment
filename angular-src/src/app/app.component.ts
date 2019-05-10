@@ -4,6 +4,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DataService } from './services/data.service';
 import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 import * as CanvasJS from './canvasjs.min';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 interface DogData {
   date : any;
@@ -480,6 +482,14 @@ export class AppComponent implements OnInit {
     }
   }
 }
+
+  generatePdf() {
+    let data = this.deep(this.gData);
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    let dd = {};
+
+    pdfMake.createPdf(dd).download();
+  }
 
   destroyGraph(graphInstance) {
     if(graphInstance) graphInstance.destroy();
