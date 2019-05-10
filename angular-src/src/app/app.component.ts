@@ -512,6 +512,7 @@ export class AppComponent implements OnInit {
     {text: 'Time', style: 'tableHeader', alignment: 'center'},
     {text: 'Comments', style: 'tableHeader', alignment: 'center'}]];
 
+    let counter = 1;
     map.forEach((value, key) => {
       //let row :any = ['', '', '', '', '', '', ''];
       let row :any = [];
@@ -521,7 +522,7 @@ export class AppComponent implements OnInit {
       //rowData.push(' ');
       if(value.length > 0) {
         day.rowSpan = value.length;
-        day.text = key;
+        day.text = "Day " + counter + ": " + key;
         row.push(day);
 
         row.push(value[0].chickenBowl);
@@ -535,50 +536,20 @@ export class AppComponent implements OnInit {
         row = [];
       }
 
-
+      for(let i=1; i<value.length; i++) {
+        row = [];
+        row.push(" ");
+        row.push(value[i].chickenBowl);
+        row.push("Order of bowls");
+        row.push(value[i].nBowlsVisited);
+        row.push("visited order");
+        row.push(value[i].timeToChicken);
+        row.push("asdf");
+        bodyData.push(row);
+      }
+      counter++;
     });
-/*
-    map.forEach((value, key) => {
-      let day: any = {};
-      let rowData = [];
-      rowData.push(' ');
-      if(value.length > 0) {
-        day.rowSpan = value.length;
-        day.text = key;
-        rowData.push(day);
-      }
 
-      for(let i=0; i<value.length; i++) {
-        rowData.push(value[i].chickenBowl);
-       //sum += value[i].timeToChicken;
-       let bowlOrder = "";
-       for(let j=0; j<value[i].orderOfBowls.length; j++) {
-          bowlOrder = bowlOrder + value[i].orderOfBowls[j].bowl + " ";
-       }
-       bowlOrder = bowlOrder.trim();
-       rowData.push(bowlOrder);
-
-       rowData.push(value[i].nBowlsVisited);
-
-       let visited = "";
-       for(let j=0; j<value[i].bowlsVisitedOrder.length; j++) {
-        visited = visited + value[i].bowlsVisitedOrder[j].bowl + " ";
-       }
-       visited = visited.trim();
-       rowData.push(visited);
-       rowData.push(value[i].timeToChicken);
-       rowData.push(value[i].timeToChicken);
-
-       if(value[i].comments.length>0) {
-        rowData.push(value[i].comments);
-       } else {
-        rowData.push("None");
-       }
-      }
-      bodyData.push(rowData);
-    });*/
-
-    console.log(bodyData[1]);
 
     var dd = {
       content: [
@@ -602,14 +573,3 @@ export class AppComponent implements OnInit {
   }
 
 }
-/*
-interface DogData {
-  date : any;
-  dogName: string;
-  orderOfBowls: any;
-  chickenBowl: string;
-  nBowlsVisited: number;
-  bowlsVisitedOrder: any;
-  timeToChicken: number;
-  comments: any;
-};*/
