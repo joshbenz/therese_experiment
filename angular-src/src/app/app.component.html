@@ -134,7 +134,7 @@
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="dogName">
-                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="dogName">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                    <span>
                     {{value}}
                   </span>
@@ -188,7 +188,7 @@
                         </span>
                         <textarea
                           rows="4"
-                          cols="50"
+                          cols="30"
                           autofocus
                           (blur)="updateValue($event, 'comments', rowIndex)"
                           *ngIf="editing[rowIndex+ '-comments']"
