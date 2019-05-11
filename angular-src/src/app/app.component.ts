@@ -47,6 +47,9 @@ export class AppComponent implements OnInit {
   isInitialOrderMatterBlue;
   isInitialOrderMatterAll;
 
+  editing = {};
+  rows = [];
+
 
   constructor(private _formBuilder: FormBuilder,
               private _dataService: DataService) {
@@ -65,6 +68,7 @@ export class AppComponent implements OnInit {
       }
       data.sort(function(a:DogData, b:DogData){return new Date(a.date).getTime() - new Date(b.date).getTime()});
       this.gData = data;
+      this.rows = data;
 
       //ali charts
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
@@ -577,8 +581,12 @@ export class AppComponent implements OnInit {
     if(graphInstance) graphInstance.destroy();
   }
 
-  onSaveConfirm(event):void {
-    console.log(event)
+  updateValue(event, cell, rowIndex) {
+    console.log('inline editing rowIndex', rowIndex)
+    this.editing[rowIndex + '-' + cell] = false;
+    this.rows[rowIndex][cell] = event.target.value;
+    this.rows = [...this.rows];
+    console.log('UPDATED!', this.rows[rowIndex][cell]);
   }
 
 }

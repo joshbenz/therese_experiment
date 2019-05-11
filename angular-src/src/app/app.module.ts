@@ -16,7 +16,7 @@ import {MatFormFieldModule,
   import { TokenInterceptorService as TokenInterceptor } from './services/token-interceptor.service';
   import { AuthService } from './services/auth.service';
   import { DataService } from './services/data.service';
-
+  import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 
@@ -39,6 +39,7 @@ import {MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatTabsModule,
+    NgxDatatableModule,
   ],
   providers: [    
     {

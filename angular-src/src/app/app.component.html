@@ -115,6 +115,79 @@
         </mat-card>
 
 
+        <mat-card>
+          <mat-card-content>
+              <ngx-datatable
+              #mydatatable
+              class="material"
+              [headerHeight]="50"
+              [limit]="15"
+              [columnMode]="'force'"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [rows]="rows">
+              <ngx-datatable-column name="date">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                  <span>
+                    {{value.getMonth() + "/" + value.getDay() + "/" + value.getFullYear()}}
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="dogName">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="dogName">
+                   <span>
+                    {{value}}
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="orderOfBowls">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                  <span *ngFor="let v of value">
+                  {{v.bowl}} </span>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="chickenBowl">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                     <span>
+                      {{value}}
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="nBowlsVisited">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                       <span>
+                        {{value}}
+                      </span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+              <ngx-datatable-column name="bowlsVisitedOrder">
+                  <ng-template ngx-datatable-cell-template let-value="value">
+                    <span *ngFor="let v of value">
+                    {{v.bowl}} </span>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="timeToChicken">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                       <span>
+                        {{value}}
+                      </span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="comments">
+                      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                         <span>
+                          {{value}}
+                        </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+            </ngx-datatable>
+          </mat-card-content>
+        </mat-card>
 
         <div><br></div>
 
