@@ -23,7 +23,18 @@ const getDatapoints = async (request, response) => {
 	}
 };
 
+const putDataPoint = async (request, response) => {
+	try {
+		const updatedDataPoint = await queries.updateDataPoint(data);
+		response.json({ success: true, result: updatedDataPoint, message: "Successfully Updated Data point" });
+	} catch(error) {
+		response.json({ success: false, message: "Unsuccessfully Updated Data point" });
+		return error;
+	}
+}
+
 module.exports = {
     postdatapoint,
-    getDatapoints
+	getDatapoints,
+	putDataPoint
 };
