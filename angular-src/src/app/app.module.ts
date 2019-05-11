@@ -16,6 +16,8 @@ import {MatFormFieldModule,
   import { TokenInterceptorService as TokenInterceptor } from './services/token-interceptor.service';
   import { AuthService } from './services/auth.service';
   import { DataService } from './services/data.service';
+  import { Ng2SmartTableModule } from 'ngx-smart-table';
+
 
 
 
@@ -39,6 +41,7 @@ import {MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatTabsModule,
+    Ng2SmartTableModule,
   ],
   providers: [    
     {
