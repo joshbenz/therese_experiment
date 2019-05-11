@@ -25,7 +25,10 @@ const getDatapoints = async (request, response) => {
 
 const putDataPoint = async (request, response) => {
 	try {
-		const updatedDataPoint = await queries.updateDataPoint(request.body.data);
+		let data = request.body.data;
+		data.orderOfBowls = JSON.stringify(data.orderOfBowls);
+		data.bowlsVisitedOrder = JSON.stringify(data.bowlsVisitedOrder);
+		const updatedDataPoint = await queries.updateDataPoint(data);
 		response.json({ success: true, result: updatedDataPoint, message: "Successfully Updated Data point" });
 	} catch(error) {
 		response.json({ success: false, message: "Unsuccessfully Updated Data point" });
