@@ -22,9 +22,8 @@ const getDatapoints = async () => {
 
 const updateDataPoint = async (data) => {
 	try {
-		let data = await User.findByIdAndUpdate(data._id, data, { new: true });
+		return await datapoint.findByIdAndUpdate(data._id, data, { new: true });
 
-		return data;
 	} catch(error) {
 		return error;
 	}

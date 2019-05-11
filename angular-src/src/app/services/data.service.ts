@@ -36,5 +36,19 @@ export class DataService {
 		}))
 	}
 
+	public update(datapoint: any) {
+        datapoint.orderOfBowls = JSON.stringify(datapoint.orderOfBowls);
+        datapoint.bowlsVisitedOrder = JSON.stringify(datapoint.bowlsVisitedOrder);
+
+		return this._http.put<any>(this.url + '/', { data: datapoint })
+		.pipe(retry(3), map((response) => {
+			if(response.success) {
+				return response.result;
+			} else {
+				throw new Error(response.message);
+			}
+		}))
+	}
+
 
 }

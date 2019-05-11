@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   hmr       : false,
-  API_URL: 'http://theresebenz.com:3000'
+  API_URL: 'http://localhost:3000'
 };
 
 /*

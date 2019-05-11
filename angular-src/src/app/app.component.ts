@@ -592,7 +592,12 @@ export class AppComponent implements OnInit {
     this.editing[rowIndex + '-' + cell] = false;
     this.rows[rowIndex][cell] = event.target.value;
     this.rows = [...this.rows];
-    console.log('UPDATED!', this.rows[rowIndex][cell]);
+
+    this._dataService.update(this.rows[rowIndex]).subscribe( (result) => {
+      console.log(result);
+      console.log('UPDATED!', this.rows[rowIndex][cell]);
+    });
+
   }
 
 }
