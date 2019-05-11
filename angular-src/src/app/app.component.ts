@@ -6,7 +6,6 @@ import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 import * as CanvasJS from './canvasjs.min';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { LocalDataSource } from 'ngx-smart-table';
 
 interface DogData {
   date : any;
@@ -48,38 +47,6 @@ export class AppComponent implements OnInit {
   isInitialOrderMatterBlue;
   isInitialOrderMatterAll;
 
-  source: LocalDataSource;
-
-  settings = {
-    columns: {
-      id: {
-        title: 'ID',
-        editable: false,
-        addable: false,
-      },
-      dogName: {
-        title: 'Dog',
-      },
-      orderOfBowls: {
-        title: 'Inital Order of Bowls',
-      },
-      chickenBowl: {
-        title: 'Chicken Bowl',
-      },
-      nBowlsVisited: {
-        title: '# Bowls Visited',
-      },
-      bowlsVisitedOrder: {
-        title: 'Order of Bowls Visted',
-      },
-      timeToChicken: {
-        title: 'Time',
-      },
-      comments: {
-        title: 'Comments',
-      },
-    },
-  };
 
   constructor(private _formBuilder: FormBuilder,
               private _dataService: DataService) {
@@ -87,7 +54,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.source = new LocalDataSource();
     this.dataForm = this.createForm();
     this.refresh();
 
@@ -99,7 +65,6 @@ export class AppComponent implements OnInit {
       }
       data.sort(function(a:DogData, b:DogData){return new Date(a.date).getTime() - new Date(b.date).getTime()});
       this.gData = data;
-      this.source.load(this.deep(data));
 
       //ali charts
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
@@ -610,6 +575,10 @@ export class AppComponent implements OnInit {
 
   destroyGraph(graphInstance) {
     if(graphInstance) graphInstance.destroy();
+  }
+
+  onSaveConfirm(event):void {
+    console.log(event)
   }
 
 }
