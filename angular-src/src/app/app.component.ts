@@ -65,10 +65,16 @@ export class AppComponent implements OnInit {
         dataPoint.orderOfBowls = JSON.parse(dataPoint.orderOfBowls);
         dataPoint.bowlsVisitedOrder = JSON.parse(dataPoint.bowlsVisitedOrder);
         dataPoint.date = new Date(dataPoint.date);
+
+        if(dataPoint.comments.length <= 0) {
+          dataPoint.comments = "None";
+        }
       }
       data.sort(function(a:DogData, b:DogData){return new Date(a.date).getTime() - new Date(b.date).getTime()});
       this.gData = data;
       this.rows = data;
+
+
 
       //ali charts
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
