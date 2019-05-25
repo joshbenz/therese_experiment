@@ -205,6 +205,17 @@
 
         <mat-card>
           <mat-card-content>
+              <div id="allBowlsCheckedBarGraph" style="height: 370px; width: 100%;"></div>
+        </mat-card-content>
+        <mat-card-footer>	
+            <p>some stuff</p>
+          </mat-card-footer>
+      </mat-card>
+
+      <div><br></div>
+
+        <mat-card>
+          <mat-card-content>
               <mat-tab-group (selectedTabChange)="toggleBowlFreqChange($event)">
                   <mat-tab label="White"> <div id="aliBowlsCheckedWrongWhenWhiteBowlBarChart" style="height: 370px; width: 100%;"></div> </mat-tab>
                   <mat-tab label="Blue"> <div id="aliBowlsCheckedWrongWhenBlueBowlBarChart" style="height: 370px; width: 100%;"></div> </mat-tab>
