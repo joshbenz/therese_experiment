@@ -208,7 +208,13 @@
               <div id="allBowlsCheckedBarGraph" style="height: 370px; width: 100%;"></div>
         </mat-card-content>
         <mat-card-footer>	
-            <p>some stuff</p>
+            <p>This is a graph of all the bowls ali has ever visited, including the bowls that had the chicken in it (aka the ones she was supposed to).
+              This graph was created by going through each data point and keeping count of each bowl color that she visited. Notice that there is way more blue 
+              visits than there are white visits. There are two factors to take into consideration due to how the experiment was run, especially since all visits were counted. One is that once we switched
+              to the blue bowl, we took out the white bowl for a lot of the data collected (basically all of them until the end). So it makes sense that didn't visit 
+              white as much, because the bowl simply wasn't even an option. The second factor is that we have 67 data points for when the chicken bowl was the white 
+              and 114 data points when the chickent bowl was blue. That means that the blue bar here automatically increases by at least 47 points over the white bowl.
+            </p>
           </mat-card-footer>
       </mat-card>
 
@@ -222,7 +228,16 @@
               </mat-tab-group>
           </mat-card-content>
             <mat-card-footer>	
-              <p>Graphs that show the frequency of bowls visited when she did not check the correct chicken bowl on the first try</p>
+              <p>Graphs that show the frequency of bowls visited when she did not check the correct chicken bowl on the first try. Note that the legend shows how many trials 
+                she got wrong out of the total number of trials for that bowl (meaning this graph only counts data where she was wrong.) This graph was created by
+                looking at each data point and first filtering out the chicken bowls by label (meaning the white tab only includes data points where the chiken bowl
+                was white. Similarly the blue tab only includes data points where the chicken bowl was blue). Next I filtered out all the data points where the number
+                of bowls visited was 1 (this means that the bowl that Ali visited first was the bowl that had the chicken. I can make this assumption because even when Ali picked 
+                the correct bowl, Therese included it as a bowl visited.) Finally, I looked at each of the remaining data points and counted all of the bowls visited except
+                for the color of the chicken bowl (meaning for the white label, I the count of the white visits. Similarly for the blue label, I exceluded the count for all 
+                of the blue visits. I did this because with this graph, we are only interested in what Ali picked when she was wrong. However, of course the white count will 
+                be 14 since she eventually ended up getting the correct bowl. Basically it doesn't add to the information that I am trying to show, so it was excluded).  
+              </p>
             </mat-card-footer>
         </mat-card>
       

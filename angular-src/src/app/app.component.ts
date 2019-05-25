@@ -104,9 +104,7 @@ export class AppComponent implements OnInit {
 
     let datapoints = [];
     map.forEach((value, key) => {
-      //if(key.toLowerCase() != bowl) {
         datapoints.push({ y: value, label: key });
-      //}
     });
 
     return new  CanvasJS.Chart(id, {
@@ -125,7 +123,7 @@ export class AppComponent implements OnInit {
         type: "column",  
         showInLegend: true, 
         legendMarkerColor: "grey",
-        //legendText: nWrongBowls + " of " + nDataPoints + " data points where she guessed wrong",
+        legendText: data.length + " datapoints",
         dataPoints: datapoints
       }]
     });
