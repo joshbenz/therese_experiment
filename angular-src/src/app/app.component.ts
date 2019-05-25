@@ -77,9 +77,57 @@ export class AppComponent implements OnInit {
 
 
       //ali charts
+      let allBowlsCheckedBarGraph = this.allBowlsChecked(this.deep(data), 'allBowlsCheckedBarGraph'); allBowlsCheckedBarGraph.render();
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
       this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatterWhite'); this.isInitialOrderMatterWhite.render();
+    });
+  }
+
+  allBowlsChecked(APIdata, id) {
+    let data  = APIdata.filter(x => {
+      return ((x.dogName.toLowerCase() == 'ali'))
+    });
+
+    let map:Map<any, any> = new Map();
+    for(let d of data) {
+      for(let visited of d.bowlsVisitedOrder) {
+        if(map.has(visited.bowl)) {
+          let count = map.get(visited.bowl);
+          count++;
+          map.set(visited.bowl, count);
+        } else {
+          map.set(visited.bowl, 1);
+        }
+      }
+    }
+
+    let datapoints = [];
+    map.forEach((value, key) => {
+      //if(key.toLowerCase() != bowl) {
+        datapoints.push({ y: value, label: key });
+      //}
+    });
+
+    return new  CanvasJS.Chart(id, {
+      animationEnabled: true,
+      theme: "light2",
+
+      title:{
+        text: "Frequency of Bowls Visited "
+      },
+
+      axisY: {
+        title: "Frequency(# of times visited)"
+      },
+
+      data: [{        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        //legendText: nWrongBowls + " of " + nDataPoints + " data points where she guessed wrong",
+        dataPoints: datapoints
+      }]
     });
   }
 
