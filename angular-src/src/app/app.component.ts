@@ -46,6 +46,9 @@ export class AppComponent implements OnInit {
   isInitialOrderMatterWhite;
   isInitialOrderMatterBlue;
   isInitialOrderMatterAll;
+  successDataBarGraphData;
+  firstDate;
+  secondDate;
 
   editing = {};
   rows = [];
@@ -80,12 +83,8 @@ export class AppComponent implements OnInit {
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
       this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatterWhite'); this.isInitialOrderMatterWhite.render();
-      let successDataBarGraphData = this.bowlsCheckedSuccess(this.deep(data), 'successDataBarGraphData');
+      this.successDataBarGraphData = this.allBowlsChecked(this.deep(data), 'successDataBarGraphData'); this.successDataBarGraphData.render();
     });
-  }
-
-  bowlsCheckedSuccess(APIdata, id) {
-
   }
 
   allBowlsChecked(APIdata, id) {
@@ -131,6 +130,11 @@ export class AppComponent implements OnInit {
         dataPoints: datapoints
       }]
     });
+  }
+
+  updateGraph() {
+    console.log(this.firstDate)
+    console.log(this.secondDate)
   }
 
   deep(data) { return JSON.parse(JSON.stringify(data))}

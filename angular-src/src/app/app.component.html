@@ -205,18 +205,18 @@
 
         <mat-card>
           <mat-card-content>
-              <div id="" style="height: 370px; width: 100%;"></div>
+              <div id="successDataBarGraphData" style="height: 370px; width: 100%;"></div>
         </mat-card-content>
         <mat-card-footer>	
           <div>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+            <input matInput [matDatepicker]="datepicker1" placeholder="Start Date" [(ngModel)]="firstDate">
+          <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker1></mat-datepicker>
         </div>
 
         <div>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input matInput [(ngModel)]="secondDate" [matDatepicker]="picker2" placeholder="Choose a date" >
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </div>
 
