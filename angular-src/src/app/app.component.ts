@@ -75,13 +75,17 @@ export class AppComponent implements OnInit {
       this.rows = data;
 
 
-
       //ali charts
       let allBowlsCheckedBarGraph = this.allBowlsChecked(this.deep(data), 'allBowlsCheckedBarGraph'); allBowlsCheckedBarGraph.render();
       this.aliBowlsCheckedWrongWhenWhiteBowlBarChart = this.bowlsChecked('white', this.deep(data), 'aliBowlsCheckedWrongWhenWhiteBowlBarChart'); this.aliBowlsCheckedWrongWhenWhiteBowlBarChart.render()
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
       this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatterWhite'); this.isInitialOrderMatterWhite.render();
+      let successDataBarGraphData = this.bowlsCheckedSuccess(this.deep(data), 'successDataBarGraphData');
     });
+  }
+
+  bowlsCheckedSuccess(APIdata, id) {
+
   }
 
   allBowlsChecked(APIdata, id) {

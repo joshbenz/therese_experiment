@@ -205,6 +205,29 @@
 
         <mat-card>
           <mat-card-content>
+              <div id="" style="height: 370px; width: 100%;"></div>
+        </mat-card-content>
+        <mat-card-footer>	
+          <div>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </div>
+
+        <div>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </div>
+
+          <button type="button" (click)="updateGraph()" class="btn btn-light">Update</button>
+          </mat-card-footer>
+      </mat-card>
+
+      <div><br></div>
+
+        <mat-card>
+          <mat-card-content>
               <div id="allBowlsCheckedBarGraph" style="height: 370px; width: 100%;"></div>
         </mat-card-content>
         <mat-card-footer>	
