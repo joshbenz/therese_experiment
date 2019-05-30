@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
   isInitialOrderMatterBlue;
   isInitialOrderMatterAll;
   successDataBarGraphData;
+  allFirstVisitsBarGraph;
   firstDate;
   secondDate;
 
@@ -86,6 +87,7 @@ export class AppComponent implements OnInit {
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
       this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatterWhite'); this.isInitialOrderMatterWhite.render();
       this.successDataBarGraphData = this.allBowlsChecked(this.deep(data), 'successDataBarGraphData'); this.successDataBarGraphData.render();
+      //this.allFirstVisitsBarGraph = this.allFirstVisitsGraph(this.deep(data), 'allFirstVisitsBarGraph'); this.allFirstVisitsBarGraph.render();
     });
   }
 
@@ -143,6 +145,61 @@ export class AppComponent implements OnInit {
     });
   }
 
+
+  allFirstVisitsGraph(APIdata, id) {
+    let data  = APIdata.filter(x => {
+      return ((x.dogName.toLowerCase() == 'ali'))
+    });
+
+    let tmp = data.filter(x => {
+      return (x.bowlsVisitedOrder.length > 1)
+    });
+
+    let nWorngBowls = tmp.length;
+    let nDataPoints = data.length;
+    let nRightBowls = nDataPoints - nWorngBowls;
+
+    let map:Map<any, any> = new Map();
+    for(let d of data) {
+     // for(let visited of d.bowlsVisitedOrder) {
+        if(map.has(d.bowlsVisitedOrder.bowl)) {
+          let count = map.get(d.bowlsVisitedOrder.bowl);
+          count++;
+          map.set(d.bowlsVisitedOrder.bowl, count);
+        } else {
+          map.set(d.bowlsVisitedOrder.bowl, 1);
+        }
+      //}
+    }
+
+    let datapoints = [];
+    map.forEach((value, key) => {
+        datapoints.push({ y: value, label: key });
+    });
+
+    return new  CanvasJS.Chart(id, {
+      animationEnabled: true,
+      theme: "light2",
+
+      title:{
+        text: "Frequency of Bowls Visited "
+      },
+
+      axisY: {
+        title: "Frequency(# of times visited)"
+      },
+
+      data: [{        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: nRightBowls + " of " + nDataPoints + ",  " + ((nRightBowls / nDataPoints)* 100) + "% success rate",
+        //legendText: data.length + " datapoints",
+        dataPoints: datapoints
+      }]
+    });
+  }
+
     filterDateRange(items, startDate, endDate) {
       //an undefined startDate is converted to the beginning of time
 
@@ -154,15 +211,24 @@ export class AppComponent implements OnInit {
       return items.filter(item => moment(new Date(item.date)).isBetween(startDate, endDate, granularity, '[]'));
     }
 
-  updateGraph() {
+  updateGraph(graph: string) {
 
     let data = this.filterDateRange(this.deep(this.gData), new Date(this.firstDate), new Date(this.secondDate));
-    console.log(data)
+    //console.log(data)
     //console.log(this.secondDate)
 
-    this.destroyGraph(this.successDataBarGraphData);
-    this.successDataBarGraphData = this.allBowlsChecked(this.deep(data), 'successDataBarGraphData');
-    this.successDataBarGraphData.render();     
+    if(graph === "allFirstVisitsBarGraph") {
+      this.destroyGraph(this.allFirstVisitsBarGraph);
+      this.allFirstVisitsBarGraph = this.allBowlsChecked(this.deep(data), 'allFirstVisitsBarGraph');
+      this.allFirstVisitsBarGraph.render();  
+    } else if(graph === "successDataBarGraphData") {
+      this.destroyGraph(this.successDataBarGraphData);
+      this.successDataBarGraphData = this.allBowlsChecked(this.deep(data), 'successDataBarGraphData');
+      this.successDataBarGraphData.render();  
+    } else {
+      console.log("It aint wokring")
+    }
+   
   }
 
   deep(data) { return JSON.parse(JSON.stringify(data))}
