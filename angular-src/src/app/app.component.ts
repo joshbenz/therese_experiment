@@ -6,6 +6,8 @@ import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 import * as CanvasJS from './canvasjs.min';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as moment from 'moment';
+
 
 interface DogData {
   date : any;
@@ -92,6 +94,13 @@ export class AppComponent implements OnInit {
       return ((x.dogName.toLowerCase() == 'ali'))
     });
 
+    let tmp = data.filter(x => {
+      return (x.bowlsVisitedOrder.length > 1)
+    });
+
+    let nWorngBowls = tmp.length;
+    let nDataPoints = data.length;
+
     let map:Map<any, any> = new Map();
     for(let d of data) {
       for(let visited of d.bowlsVisitedOrder) {
@@ -126,15 +135,33 @@ export class AppComponent implements OnInit {
         type: "column",  
         showInLegend: true, 
         legendMarkerColor: "grey",
-        legendText: data.length + " datapoints",
+        legendText: nWorngBowls + " of " + nDataPoints + " data points where she guessed wrong",
+        //legendText: data.length + " datapoints",
         dataPoints: datapoints
       }]
     });
   }
 
+    filterDateRange(items, startDate, endDate) {
+      //an undefined startDate is converted to the beginning of time
+
+      startDate = startDate || 0;
+  
+      const granularity = 'days' // can be 'days', ... see momentJS doc
+  
+      //you need support for array.prototype.filter and arrow functions; i.e. IE sucks/needs a polyfill   
+      return items.filter(item => moment(new Date(item.date)).isBetween(startDate, endDate, granularity, '[]'));
+    }
+
   updateGraph() {
-    console.log(this.firstDate)
-    console.log(this.secondDate)
+
+    let data = this.filterDateRange(this.deep(this.gData), new Date(this.firstDate), new Date(this.secondDate));
+    console.log(data)
+    //console.log(this.secondDate)
+
+    this.destroyGraph(this.successDataBarGraphData);
+    this.successDataBarGraphData = this.allBowlsChecked(this.deep(data), 'successDataBarGraphData');
+    this.successDataBarGraphData.render();     
   }
 
   deep(data) { return JSON.parse(JSON.stringify(data))}

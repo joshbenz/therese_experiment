@@ -17,6 +17,8 @@ import {MatFormFieldModule,
   import { AuthService } from './services/auth.service';
   import { DataService } from './services/data.service';
   import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+  import { MomentModule } from 'ngx-moment';
+
 
 
 
@@ -40,6 +42,7 @@ import {MatFormFieldModule,
     MatSelectModule,
     MatTabsModule,
     NgxDatatableModule,
+    MomentModule,
   ],
   providers: [    
     {

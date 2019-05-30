@@ -29,6 +29,8 @@
     "bootstrap": "^4.3.1",
     "canvasjs": "^1.8.1",
     "core-js": "^2.5.4",
+    "moment": "^2.24.0",
+    "ngx-moment": "^3.4.0",
     "ngx-smart-table": "^2.0.3",
     "pdfmake": "^0.1.56",
     "rxjs": "~6.3.3",
