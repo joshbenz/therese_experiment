@@ -100,6 +100,7 @@ export class AppComponent implements OnInit {
 
     let nWorngBowls = tmp.length;
     let nDataPoints = data.length;
+    let nRightBowls = nDataPoints - nWorngBowls;
 
     let map:Map<any, any> = new Map();
     for(let d of data) {
@@ -135,7 +136,7 @@ export class AppComponent implements OnInit {
         type: "column",  
         showInLegend: true, 
         legendMarkerColor: "grey",
-        legendText: nWorngBowls + " of " + nDataPoints + " data points where she guessed wrong",
+        legendText: nRightBowls + " of " + nDataPoints + ",  " + ((nRightBowls / nDataPoints)* 100) + "% success rate",
         //legendText: data.length + " datapoints",
         dataPoints: datapoints
       }]
@@ -581,6 +582,7 @@ export class AppComponent implements OnInit {
     let aliData = data.filter(x => {
       return (x.dogName.toLowerCase() == 'ali')
     });
+    console.log(aliData.length)
 
     let map = new Map();
     for(let i=0; i<aliData.length; i++) {
@@ -594,6 +596,7 @@ export class AppComponent implements OnInit {
         map.set(aliData[i].date, tmp);
       }
     }
+    //console.log(map.size)
 
     let bodyData = [[{text: 'Day', style: 'tableHeader', alignment: 'center'}, 
     {text: 'Chicken Bowl', style: 'tableHeader', alignment: 'center'}, 
@@ -630,6 +633,7 @@ export class AppComponent implements OnInit {
         bodyData.push(row);
         row = [];
       }
+      console.log(value)
 
       for(let i=1; i<value.length; i++) {
         row = [];
