@@ -265,6 +265,18 @@
               </mat-tab-group>
           </mat-card-content>
             <mat-card-footer>	
+                <div>
+                    <input matInput [(ngModel)]="secondDate" [matDatepicker]="picker2freq" placeholder="Choose a date" >
+                    <mat-datepicker-toggle matSuffix [for]="picker2freq"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2freq></mat-datepicker>
+                  </div>
+                  <div>
+                      <input matInput [(ngModel)]="secondDate" [matDatepicker]="picker2freq1" placeholder="Choose a date" >
+                      <mat-datepicker-toggle matSuffix [for]="picker2freq1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2freq1></mat-datepicker>
+                    </div>
+        
+                  <button type="button" (click)="updateGraph('aliBowlsCheckedWrongWhenBlueBowlBarChart')" class="btn btn-light">Update</button>
               <p>Graphs that show the frequency of bowls visited when she did not check the correct chicken bowl on the first try. Note that the legend shows how many trials 
                 she got wrong out of the total number of trials for that bowl (meaning this graph only counts data where she was wrong.) This graph was created by
                 looking at each data point and first filtering out the chicken bowls by label (meaning the white tab only includes data points where the chiken bowl

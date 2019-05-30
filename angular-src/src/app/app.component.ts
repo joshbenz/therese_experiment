@@ -225,6 +225,8 @@ export class AppComponent implements OnInit {
       this.destroyGraph(this.successDataBarGraphData);
       this.successDataBarGraphData = this.allBowlsChecked(this.deep(data), 'successDataBarGraphData');
       this.successDataBarGraphData.render();  
+    } else if(graph === "aliBowlsCheckedWrongWhenBlueBowlBarChart") {
+      //not worth
     } else {
       console.log("It aint wokring")
     }
