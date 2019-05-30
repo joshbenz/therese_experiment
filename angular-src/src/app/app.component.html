@@ -129,7 +129,7 @@
               <ngx-datatable-column name="date">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
                   <span>
-                    {{value.getMonth() + "/" + value.getDay() + "/" + value.getFullYear()}}
+                    {{value.getMonth()+1 + "/" + value.getDate() + "/" + value.getFullYear()}}
                   </span>
                 </ng-template>
               </ngx-datatable-column>

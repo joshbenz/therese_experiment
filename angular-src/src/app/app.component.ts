@@ -611,7 +611,8 @@ export class AppComponent implements OnInit {
       if(value.length > 0) {
         day.rowSpan = value.length;
         let date = new Date(key);
-        day.text = "Day " + counter + ": " + date.getMonth() + "/" + date.getDay() + "/" + date.getFullYear();
+        //value.getMonth()+1 + "/" + value.getDate() + "/" + value.getFullYear()
+        day.text = "Day " + counter + ": " + (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear();
         row.push(day);
 
         row.push(value[0].chickenBowl);
