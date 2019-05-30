@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
       let timScatterCompareChart = this.timScatterCompare(this.deep(data), 'timScatterCompareChart'); timScatterCompareChart.render();
       this.isInitialOrderMatterWhite = this.doesInitOrderMatter(this.deep(data), 'white', 'isInitialOrderMatterWhite'); this.isInitialOrderMatterWhite.render();
       this.successDataBarGraphData = this.allBowlsChecked(this.deep(data), 'successDataBarGraphData'); this.successDataBarGraphData.render();
-      //this.allFirstVisitsBarGraph = this.allFirstVisitsGraph(this.deep(data), 'allFirstVisitsBarGraph'); this.allFirstVisitsBarGraph.render();
+      this.allFirstVisitsBarGraph = this.allFirstVisitsGraph(this.deep(data), 'allFirstVisitsBarGraph'); this.allFirstVisitsBarGraph.render();
     });
   }
 
@@ -162,12 +162,12 @@ export class AppComponent implements OnInit {
     let map:Map<any, any> = new Map();
     for(let d of data) {
      // for(let visited of d.bowlsVisitedOrder) {
-        if(map.has(d.bowlsVisitedOrder.bowl)) {
-          let count = map.get(d.bowlsVisitedOrder.bowl);
+        if(map.has(d.bowlsVisitedOrder[0].bowl)) {
+          let count = map.get(d.bowlsVisitedOrder[0].bowl);
           count++;
-          map.set(d.bowlsVisitedOrder.bowl, count);
+          map.set(d.bowlsVisitedOrder[0].bowl, count);
         } else {
-          map.set(d.bowlsVisitedOrder.bowl, 1);
+          map.set(d.bowlsVisitedOrder[0].bowl, 1);
         }
       //}
     }
@@ -182,7 +182,7 @@ export class AppComponent implements OnInit {
       theme: "light2",
 
       title:{
-        text: "Frequency of Bowls Visited "
+        text: "Frequency of Bowls Visited (Only First Visit)"
       },
 
       axisY: {
@@ -214,12 +214,12 @@ export class AppComponent implements OnInit {
   updateGraph(graph: string) {
 
     let data = this.filterDateRange(this.deep(this.gData), new Date(this.firstDate), new Date(this.secondDate));
-    //console.log(data)
+    console.log(data)
     //console.log(this.secondDate)
 
     if(graph === "allFirstVisitsBarGraph") {
       this.destroyGraph(this.allFirstVisitsBarGraph);
-      this.allFirstVisitsBarGraph = this.allBowlsChecked(this.deep(data), 'allFirstVisitsBarGraph');
+      this.allFirstVisitsBarGraph = this.allFirstVisitsGraph(this.deep(data), 'allFirstVisitsBarGraph');
       this.allFirstVisitsBarGraph.render();  
     } else if(graph === "successDataBarGraphData") {
       this.destroyGraph(this.successDataBarGraphData);
